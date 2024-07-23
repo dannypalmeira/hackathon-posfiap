@@ -1,0 +1,21 @@
+<div class="container-fluid container-fluid-custom pb-5 mb-5">
+
+ 
+    <div class="row mb-4">
+      <div class="col">
+        <nav aria-label="breadcrumb">
+          <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="/ongs">ONG's</a></li>
+            <li class="breadcrumb-item active"><%= ong.nome_org %></li>
+          </ol>
+        </nav>
+        <div class="col d-flex justify-content-between align-items-center">
+          <h1 class="h3"><%= ong.nome_org %></h1>
+          <button type="button" class="btn btn-danger me-2" data-bs-toggle="modal" id="deleteButton" data-bs-target="#deleteModal">
+            Excluir Espaço
+          </button>
+        </div>
+      </div>
+    </div>
+
+    </div>
