@@ -23,11 +23,11 @@
         <input class="form-control rounded-3" type="password" id="confirmSenha" name="confirmSenha" required placeholder =""/>
         <label id="lblConfirmSenha">Confirma senha</label>
       </div>
-      <div class="form-floating d-flex">
 
-        <input class="form-control h-5%" type="radio" name="usuario" value="Operador" /> Operador 
-        <input class="form-control " type="radio"  name="usuario" value="Adm"/> Administrador
-      </div>
+        <div class="text-center mb-3">      
+          <label class="radio-inline me-2" for="floatingUser"><input type="radio" id="tipo1" name="tipo" value="usuario" checked> Operador</label>
+          <label class="radio-inline" for="floatingUser"><input type="radio" id="tipo2" name="tipo" value="admin"> Administrador</label>
+        </div>
       <div class="divErro" role="alert"></div>
 
       <div style="display: flex;flex-direction: row; justify-content: space-around; margin-top: 2em;">

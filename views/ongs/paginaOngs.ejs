@@ -1,0 +1,26 @@
+<div class="container-fluid container-fluid-custom pb-5 mb-5">
+
+   
+    <div class="row">
+      <% if (ongs.length > 0) { for(var i=0; i < ongs.length; i++) { %>
+        <div class="col-sm-3 mb-4">
+          <div class="card border-primary" style="min-height: 210px">
+            <a href="/ongs/<%= ongs[i]._id %>" class="card-body text-decoration-none">
+              <img src="<%= ongs[i].logo %>">
+              <h5 class="card-title"><%= ongs[i].nome_org %></h5>
+              <p class="card-text fw-bold"><%= ongs[i].descricao %></p>
+              <p class="card-text"><%= ongs[i].area %></p>
+              <p class="card-text"><strong>Contato:</strong> <%= ongs[i].contato %></p>
+              <button type="button" class="btn btn-outline-dark btn-sm">Ver detalhes</button>
+            </a>
+          </div>
+        </div>
+      <%  }} else { %>
+        <div class="row">
+          
+        </div>
+      <% } %>
+    </div>
+  
+  
+  </div>
