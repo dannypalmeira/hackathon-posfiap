@@ -8,3 +8,8 @@ function verificaLogado() {
     irParaPagina("/login");
   }
 }
+
+function cadastraUser(e) {
+  e.preventDefault();
+  console.log(e);
+}

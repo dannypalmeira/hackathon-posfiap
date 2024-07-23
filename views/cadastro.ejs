@@ -1,0 +1,42 @@
+<div class="modal modal-sheet position-static d-block p-4 py-md-5" tabindex="-1" role="dialog" id="modalSignin">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content rounded-4 shadow">
+      <div class="modal-header p-5 pb-4 border-bottom-0">
+        <h1 class="fw-bold mb-0 fs-2">Cadastre-se</h1>
+      </div>
+
+      <div class="modal-body p-5 pt-0" id="divForm">
+    <form id="form" onsubmit="cadastraUser(event)"  > 
+      <div class="form-floating mb-3">
+        <input class="form-control rounded-3" type="text" id="nome" name="nome" required placeholder =""/>
+        <label id="lblNome">Nome completo</label>
+      </div>
+      <div class="form-floating mb-3">
+        <input class="form-control rounded-3" type="text" id="email" name="email" required placeholder =""/>
+        <label id="lblEmail">E-mail</label>
+      </div>
+      <div class="form-floating mb-3">
+        <input class="form-control rounded-3" type="password" id="senha" name="senha" required placeholder =""/>
+        <label id="lblSenha">Senha</label>
+      </div>
+      <div class="form-floating mb-3">
+        <input class="form-control rounded-3" type="password" id="confirmSenha" name="confirmSenha" required placeholder =""/>
+        <label id="lblConfirmSenha">Confirma senha</label>
+      </div>
+      <div class="form-floating d-flex">
+
+        <input class="form-control h-5%" type="radio" name="usuario" value="Operador" /> Operador 
+        <input class="form-control " type="radio"  name="usuario" value="Adm"/> Administrador
+      </div>
+      <div class="divErro" role="alert"></div>
+
+      <div style="display: flex;flex-direction: row; justify-content: space-around; margin-top: 2em;">
+        <button type="submit" class="btn btn-outline-dark btn-md">Cadastrar</button>
+        <a href="/login" type="button" class="btn btn-outline-dark btn-md">Login</a>
+        
+      </div>     
+    </form>
+  </div>
+</div>
+</div>
+</div>
