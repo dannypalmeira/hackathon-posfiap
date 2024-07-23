@@ -12,7 +12,7 @@
         <label id="lblNome">Nome completo</label>
       </div>
       <div class="form-floating mb-3">
-        <input class="form-control rounded-3" type="text" id="email" name="email" required placeholder =""/>
+        <input class="form-control rounded-3" type="email" id="email" name="email" required placeholder =""/>
         <label id="lblEmail">E-mail</label>
       </div>
       <div class="form-floating mb-3">
@@ -23,11 +23,14 @@
         <input class="form-control rounded-3" type="password" id="confirmSenha" name="confirmSenha" required placeholder =""/>
         <label id="lblConfirmSenha">Confirma senha</label>
       </div>
-      <div class="form-floating d-flex">
-
-        <input class="form-control h-5%" type="radio" name="usuario" value="Operador" /> Operador 
-        <input class="form-control " type="radio"  name="usuario" value="Adm"/> Administrador
-      </div>
+      <div class="form-check me-3">
+        <input class="form-check-input" type="radio" id="Operador" name="tipo" value="Operador" required>
+        <label class="form-check-label" for="Operador">Operador</label>
+    </div>
+    <div class="form-check">
+        <input class="form-check-input" type="radio" id="Adm" name="tipo" value="Adm">
+        <label class="form-check-label" for="Adm">Administrador</label>
+    </div>
       <div class="divErro" role="alert"></div>
 
       <div style="display: flex;flex-direction: row; justify-content: space-around; margin-top: 2em;">

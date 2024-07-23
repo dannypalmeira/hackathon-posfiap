@@ -1,15 +1,17 @@
-import mongoose, { mongo } from "mongoose";
+import mongoose, {mongo} from "mongoose";
 
-
-const ongSchema = new mongoose.Schema({
+const ongSchema = new mongoose.Schema(
+  {
     id: {type: mongoose.Schema.Types.ObjectId},
     nome_org: {type: String, required: true},
     descricao: {type: String},
     area: {type: String},
-    contato: {type: Number, required: true },
+    contato: {type: Number, required: true},
     logo: {type: String},
     //exemplo de ref usuario: usuarioSchema
-}, {versionKey:false});
+  },
+  {versionKey: false}
+);
 
 const ong = mongoose.model("ongs", ongSchema);
 
