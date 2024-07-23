@@ -1,0 +1,52 @@
+<div class="container-fluid bg-dark">
+  <header class="d-flex flex-wrap align-items-center justify-content-center justify-content-md-between py-3 mb-4">
+    <a href="/" class="d-flex align-items-center col-md-3 mb-2 mb-md-0 text-primary text-decoration-none fw-bold fs-2">
+      HACKA | Grupo O
+    </a>
+
+    <div class="text-end" id="divBtns">
+      <% if (locals.currentUrl !== '/login' && locals.currentUrl !== '/cadastro') { %>
+       
+        <a href="/login" type="button" class="btn btn-warning">Sair</a>
+      <% } %>
+    </div>
+</header>
+</div>
+
+<script>
+  function verificaAdm(){
+    const tipo = localStorage.getItem("tipo")
+      let div= document.getElementById("divBtns")
+    if(tipo==="Admin"){
+      const adminBtn = document.createElement("a");
+      adminBtn.href = "/addEspaco";
+      adminBtn.type = "button";
+      adminBtn.className = "btn btn-outline-light me-2";
+      adminBtn.textContent = "Criar Espaço";
+
+      div.insertBefore(adminBtn, div.firstChild);
+
+
+      const reservas = document.createElement("a");
+      reservas.href = "/todasReservas";
+      reservas.type = "button";
+      reservas.className = "btn btn-outline-light me-2";
+      reservas.textContent = "Todas Reservas";
+
+      div.insertBefore(reservas, div.firstChild);
+    }
+    if(tipo==="Operador"){
+      const adminBtn = document.createElement("a");
+      adminBtn.href = "/minhasReservas";
+      adminBtn.type = "button";
+      adminBtn.className = "btn btn-outline-light me-2";
+      adminBtn.textContent = "Minhas Reservas";
+
+      div.insertBefore(adminBtn, div.firstChild);
+    }
+  }
+
+  verificaAdm()
+  </script>
+
+
