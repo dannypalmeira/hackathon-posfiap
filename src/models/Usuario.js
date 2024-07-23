@@ -9,5 +9,5 @@ const usuarioSchema = new mongoose.Schema({
 
 const usuario = mongoose.model("usuarios", usuarioSchema);
 
-// exportando os dois para poder referenciar no livro
+// exportando os dois para poder referenciar nas ongs somente se necessario
 export {usuario, usuarioSchema};

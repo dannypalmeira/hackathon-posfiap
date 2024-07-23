@@ -2,7 +2,7 @@ import {usuario} from "../models/Usuario.js";
 
 // no geral foi dividido a chamada da api para atraves do controller criado utilizar somente as rotas necessaria
 class usuarioController {
-    //static usado para chamar de forma statica
+   
     static async listaUsuarios (req, res){
     try {
         const listaUsuarios = await usuario.find({});

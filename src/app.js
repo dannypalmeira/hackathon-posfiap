@@ -14,7 +14,6 @@ conexao.once("open", () => {
     console.log("conexão feita com sucesso")
 });
 
-// funcao para converter o id
 
 export default app;
 

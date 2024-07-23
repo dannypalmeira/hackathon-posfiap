@@ -8,8 +8,7 @@ const ongSchema = new mongoose.Schema({
     area: {type: String},
     contato: {type: Number, required: true },
     logo: {type: String},
-    //referenciando o autor
-    //exemplo de ref autor: autorSchema
+    //exemplo de ref usuario: usuarioSchema
 }, {versionKey:false});
 
 const ong = mongoose.model("ongs", ongSchema);

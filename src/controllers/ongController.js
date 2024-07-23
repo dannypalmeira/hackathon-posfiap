@@ -2,7 +2,7 @@ import ong from "../models/Ong.js";
 
 // no geral foi dividido a chamada da api para atraves do controller criado utilizar somente as rotas necessaria
 class ongController {
-    //static usado para chamar de forma statica
+    
     static async listaOngs (req, res){
     try {
         const listaongs = await ong.find({});
