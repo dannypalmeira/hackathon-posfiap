@@ -14,4 +14,4 @@ const ongSchema = new mongoose.Schema({
 
 const ong = mongoose.model("ongs", ongSchema);
 
-export default {ong};
+export default ong;

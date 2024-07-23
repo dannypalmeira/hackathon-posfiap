@@ -1,8 +1,11 @@
 import mongoose , {mongo} from "mongoose";
+import dotenv from 'dotenv';
+
+dotenv.config();
 
 
 async function conectaNaDatabase(){
-    mongoose.connect("mongodb+srv://postechfiapgrupoo:6LeWd17MQsVOX8Dd@cluster0.ww3kh9l.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0");
+    mongoose.connect(process.env.DB_CONNECTION_STRING);
     
     return mongoose.connection;
 };
