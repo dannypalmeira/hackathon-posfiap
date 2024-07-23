@@ -1,5 +1,5 @@
 :root {
-  --background-color: #0297d5;
+  --background-color: #fff;
   --bs-primary-rgb: #212529;
   --bs-link-color: #212529;
   --bs-secondary-color: #48a944;
@@ -51,6 +51,18 @@ header {
  background-color: var(--bs-secondary-color);
  border-color: var(--bs-secondary-color);
  color: #fff;
+}
+
+.breadcrumb-item a {
+  color: #333;
+}
+
+.breadcrumb-item a:hover {
+  color: #666;
+}
+
+.breadcrumb-item.active {
+  color: #fff;
 }
 
 /*

@@ -18,6 +18,10 @@ app.set("views", "./views");
 
 routes(app);
 
+app.get('*', function (req, res) {
+  res.status(404).render('404');
+});
+
 const conexao = await conectaNaDatabase();
 
 conexao.on("error", (erro) => {
