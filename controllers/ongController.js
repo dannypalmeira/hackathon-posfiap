@@ -15,7 +15,7 @@ class ongController {
         } catch (erro) {
             res.status(500).send("Erro ao listar ONGs: " + erro.message);
         }
-    }
+    };
 
     static async listaOngPorId(req, res) {
         try {
@@ -34,7 +34,7 @@ class ongController {
         } catch (erro) {
             res.status(500).send("Erro ao consultar ONG: " + erro.message);
         }
-    }
+    };
 
     static async cadastrarOng(req, res) {
         try {
@@ -69,17 +69,41 @@ class ongController {
         }
     };
 
-    static async renderizarListaOngs(req, res) {
+    static async pesquisaOngs(req, res) {
         try {
-            const listaongs = await ong.find({});
-            res.render("ongs/paginaOngs", {
-                layout: "./layout/main.ejs",
-                title: "Lista de ONGs",
-                description: "Veja a lista das ONGs disponíveis.",
-                ongs: listaongs
+            res.render("ongs/buscarOng", {
+                searchResults: [],
+                layout: "../views/layout/main",
+                title: "Pesquisar ONGs",
+                description: "Busque ONGs por nome ou descrição."
             });
-        } catch (erro) {
-            res.status(500).send("Erro ao listar ONGs: " + erro.message);
+        } catch (error) {
+            console.log(error);
+            res.status(500).send("Erro interno do servidor.");
+        }
+    };
+
+    static async pesquisaOngsSubmit(req, res) {
+        try {
+            let searchTerm = req.body.searchTerm;
+            const searchNoSpecialChars = searchTerm.replace(/[^a-zA-Z0-9 ]/g, "");
+
+            const searchResults = await ong.find({
+                $or: [
+                    { nome_org: { $regex: new RegExp(searchNoSpecialChars, "i") } },
+                    { descricao: { $regex: new RegExp(searchNoSpecialChars, "i") } },
+                ]
+            });
+
+            res.render("ongs/buscarOng", {
+                searchResults,
+                layout: "../views/layout/main",
+                title: "Resultados da Pesquisa",
+                description: "Veja os resultados da sua pesquisa."
+            });
+        } catch (error) {
+            console.log(error);
+            res.status(500).send("Erro interno do servidor.");
         }
     };
 
