@@ -1,11 +1,21 @@
 <div class="container-fluid container-fluid-custom pb-5 mb-5">
 
+
+  <div class="row mb-4">
+      <div class="col">
+        <h1 class="h3">Aqui estão as ONGS disponíveis.</h1>
+        <div class="text-end">
+          <a href="/ongs/cadastrarOng" class="btn btn-primary">+ Cadastrar uma ONG</a>
+        </div>
+      </div>
+      </div>
+  
    
     <div class="row">
       <% if (ongs.length > 0) { for(var i=0; i < ongs.length; i++) { %>
         <div class="col-sm-3 mb-4">
           <div class="card border-primary" style="min-height: 210px">
-            <a href="/ongs/<%= ongs[i]._id %>" class="card-body text-decoration-none">
+            <a href="/ongs/nome/<%= encodeURIComponent(ongs[i].nome_org) %>" class="card-body text-decoration-none">
               <img src="<%= ongs[i].logo %>">
               <h5 class="card-title"><%= ongs[i].nome_org %></h5>
               <p class="card-text fw-bold"><%= ongs[i].descricao %></p>
@@ -17,7 +27,9 @@
         </div>
       <%  }} else { %>
         <div class="row">
-          
+          <div class="col-sm-3 mb-4">
+            <p>Nenhuma ONG encontrada.</p>
+          </div>
         </div>
       <% } %>
     </div>

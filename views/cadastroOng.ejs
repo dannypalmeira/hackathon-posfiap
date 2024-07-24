@@ -1,0 +1,76 @@
+<div class="container-fluid container-fluid-custom pb-5 mb-5">
+
+    <div class="row mb-4">
+        <div class="col">
+            <nav aria-label="breadcrumb">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="/ongs">ONG's</a></li>
+                    <li class="breadcrumb-item active">Cadastrar ONG</li>
+                </ol>
+            </nav>
+            <div class="col d-flex justify-content-between align-items-center">
+                <h1 class="h3">Cadastrar ONG</h1>
+            </div>
+        </div>
+    </div>
+
+    <form id="form" onsubmit="cadastrarOng(event)" class="position-relative">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="form-group mb-4">
+                    <input type="text" class="form-control fw-bold border-0 fs-4" id="nome_org" name="nome_org"
+                        placeholder="Nome do OMG" required>
+                    <input type="text" class="form-control fw-bold border-0 fs-4" id="area" name="area"
+                        placeholder="Localidade" required>
+                    <input type="number" class="form-control fw-bold border-0 fs-4" id="contato" name="contato"
+                        placeholder="Contato" required>
+                    <input type="text" class="form-control fw-bold border-0 fs-4" id="logo" name="logo"
+                        placeholder="Url Imagem" required>
+                    <textarea required class="form-control pt-5 fs-4 mb-4" id="descricao" name="descricao"
+                        placeholder="Adicione uma breve descrição..." rows="12"></textarea>
+                    <button type="submit" class="btn btn-primary btn-lg">Salvar</button>
+                </div>
+            </div>
+        </div>
+    </form>
+
+</div>
+
+<script>
+    function cadastrarOng(event) {
+        event.preventDefault();
+        
+        const nome_org = document.getElementById('nome_org').value;
+        const descricao = document.getElementById('descricao').value;
+        const contato = document.getElementById('contato').value;
+        const area = document.getElementById('area').value;
+        const logo = document.getElementById('logo').value;
+
+    
+        console.log('Dados do formulário:', { nome_org, descricao, contato, area, logo });
+        
+        fetch('/ongs/cadastrarOng', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ nome_org, descricao, contato, area, logo })
+        })
+        .then(response => {
+            console.log('Resposta da requisição:', response);
+            return response.json();
+        })
+        .then(data => {
+            console.log('Dados retornados pelo servidor:', data);
+            
+            if (data.message === "Criado com sucesso") {
+                window.location.href = "/ongs"; 
+            } else {
+                console.log('Erro:', data.err);
+            }
+        })
+        .catch((error) => {
+            console.error('Erro na requisição:', error);
+        });
+    }
+</script>
