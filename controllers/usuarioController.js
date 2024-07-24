@@ -1,5 +1,6 @@
 import {usuario} from "../models/Usuario.js";
 import bcrypt from "bcrypt";
+import nodemailer from "nodemailer";
 import jwt from "jsonwebtoken";
 
 // no geral foi dividido a chamada da api para atraves do controller criado utilizar somente as rotas necessaria
@@ -85,28 +86,32 @@ class usuarioController {
       return res.status(500).send({err: "Por favor, preencha o email"});
     }
 
-    const token = jwt.sing({id: email}, process.env.TOKEN, {expiresIn: 600});
+    const token = jwt.sign({id: email}, process.env.TOKEN, {expiresIn: 600});
     const mailOptions = {
       from: process.env.EMAIL,
       to: email,
       subject: "Redefinição de senha",
-      html: `<h3><a href="https://localhost:3000/alteraSenha/token=${token}">Clique aqui</a> para redefinir sua senha.</h3>`,
+      html: `<h3><a href="http://localhost:3000/alteraSenha/token=${token}">Clique aqui</a> para redefinir sua senha.</h3>`,
     };
-    transporterEmail.sendMail(mailOptions, async (err, info) => {
+    const transporter = await transporterEmail();
+    transporter.sendMail(mailOptions, async (err, info) => {
       if (err) {
+        console.log("err", err);
         return res.status(500).send({err: "Não foi possível enviar email."});
       }
-      transporterEmail.close();
+      transporter.close();
     });
-    transporterEmail.close();
-    return res.send(200).send({message: "Email enviado"});
+    transporter.close();
+    return res.status(200).send({message: "Email enviado"});
   }
 }
 
 async function transporterEmail() {
+  console.log(process.env.HOST_EMAIL, process.env.EMAIL, process.env.SENHA);
   const transporter = nodemailer.createTransport({
     host: process.env.HOST_EMAIL,
     service: "gmail",
+    port: 587,
     secure: false,
     auth: {
       user: process.env.EMAIL,

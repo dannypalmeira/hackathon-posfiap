@@ -109,23 +109,23 @@ function limpaStorage() {
 
 async function redefineSenha(e) {
   e.preventDefault();
-  return;
-  // const form = document.getElementById(form);
-  // const formData = new FormData(form);
 
-  // try {
-  //   const res = fetch("/redefineSenha", {
-  //     method: "POST",
-  //     headers: {
-  //       "Content-Type": "application/x-www-form-urlencoded",
-  //     },
-  //     body: new URLSearchParams(formData).toString(),
-  //   });
+  const form = document.getElementById("form");
+  const formData = new FormData(form);
 
-  //   console.log("response", res);
-  //   return;
-  // } catch (ex) {
-  //   console.log("ex", ex);
-  //   return;
-  // }
+  try {
+    const res = await fetch("/redefineSenha", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/x-www-form-urlencoded",
+      },
+      body: new URLSearchParams(formData).toString(),
+    });
+
+    console.log("response", res);
+    return;
+  } catch (ex) {
+    console.log("ex", ex);
+    return;
+  }
 }
