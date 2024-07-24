@@ -1,5 +1,6 @@
 import {usuario} from "../models/Usuario.js";
 import bcrypt from "bcrypt";
+import jwt from "jsonwebtoken";
 
 // no geral foi dividido a chamada da api para atraves do controller criado utilizar somente as rotas necessaria
 class usuarioController {
@@ -76,6 +77,44 @@ class usuarioController {
         .json({message: `${erro.message} - Falha ao excluir o usuario`});
     }
   }
+
+  static async redefineSenha(req, res) {
+    const {email} = req.body;
+    console.log("controller");
+    if (!email) {
+      return res.status(500).send({err: "Por favor, preencha o email"});
+    }
+
+    const token = jwt.sing({id: email}, process.env.TOKEN, {expiresIn: 600});
+    const mailOptions = {
+      from: process.env.EMAIL,
+      to: email,
+      subject: "Redefinição de senha",
+      html: `<h3><a href="https://localhost:3000/alteraSenha/token=${token}">Clique aqui</a> para redefinir sua senha.</h3>`,
+    };
+    transporterEmail.sendMail(mailOptions, async (err, info) => {
+      if (err) {
+        return res.status(500).send({err: "Não foi possível enviar email."});
+      }
+      transporterEmail.close();
+    });
+    transporterEmail.close();
+    return res.send(200).send({message: "Email enviado"});
+  }
+}
+
+async function transporterEmail() {
+  const transporter = nodemailer.createTransport({
+    host: process.env.HOST_EMAIL,
+    service: "gmail",
+    secure: false,
+    auth: {
+      user: process.env.EMAIL,
+      pass: process.env.SENHA,
+    },
+  });
+
+  return transporter;
 }
 
 export default usuarioController;

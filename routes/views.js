@@ -9,6 +9,14 @@ router.get("/", (req, res) => {
   res.render("home", locals);
 });
 
+router.get("/redefineSenha", (req, res) => {
+  const locals = {
+    title: "HACKA | GRUPO O",
+    description: "Pagina de redefinição de senha",
+  };
+  res.render("redefineSenha", locals);
+});
+
 router.get("/login", (req, res) => {
   const locals = {
     title: "HACKA | GRUPO O",
@@ -25,4 +33,11 @@ router.get("/cadastro", (req, res) => {
   res.render("cadastro", {locals, erro: null});
 });
 
+router.get("/alteraSenha/:token?", (req, res) => {
+  const locals = {
+    title: "HACKA | GRUPO O",
+    description: "Página de alteração de senha",
+  };
+  res.render("alteraSenha", {locals, erro: null});
+});
 export default router;

@@ -11,6 +11,7 @@ function verificaLogado() {
 
 async function cadastraUser(e) {
   e.preventDefault();
+  console.log("oiiiiiiiiiiiiiiiiiiiiiiiiiiiiii");
   const form = document.getElementById("form");
 
   if (form.senha.value !== form.confirmSenha.value) {
@@ -104,4 +105,27 @@ function validaSenhaForte(password) {
 
 function limpaStorage() {
   sessionStorage.clear();
+}
+
+async function redefineSenha(e) {
+  e.preventDefault();
+  return;
+  // const form = document.getElementById(form);
+  // const formData = new FormData(form);
+
+  // try {
+  //   const res = fetch("/redefineSenha", {
+  //     method: "POST",
+  //     headers: {
+  //       "Content-Type": "application/x-www-form-urlencoded",
+  //     },
+  //     body: new URLSearchParams(formData).toString(),
+  //   });
+
+  //   console.log("response", res);
+  //   return;
+  // } catch (ex) {
+  //   console.log("ex", ex);
+  //   return;
+  // }
 }

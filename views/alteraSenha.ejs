@@ -2,19 +2,25 @@
   <div class="modal-dialog" role="document">
     <div class="modal-content rounded-4 shadow">
       <div class="modal-header p-5 pb-4 border-bottom-0">
-        <h1 class="fw-bold mb-0 fs-2">Redefinir senha</h1>
+        <h1 class="fw-bold mb-0 fs-2">Altera Senha</h1>
       </div>
 
-      <div class="modal-body p-5 pt-0" id="divForm" >
-    <form id="form"  onsubmit="redefineSenha(event)" > 
+      <div class="modal-body p-5 pt-0" id="divForm">
+    <form id="form" onsubmit="EfetuaLogin(event)"> 
       <div class="form-floating mb-3">
         <input type="text" class="form-control rounded-3" id="email" name="email" required placeholder =""/>
         <label id="lblEmail">E-mail</label>
       </div>
+      <div class="form-floating mb-3">
+        <input type="password" class="form-control rounded-3" id="senha" name="senha" required placeholder =""/>
+        <label id="lblSenha">Senha</label>
+      </div>
+
       <div class="divErro" role="alert"></div>
+
       <div style="display: flex;flex-direction: row; justify-content: space-around; margin-top: 2em;">
-      <button class="btn btn-outline-dark btn-md" type="submit">Enviar email</button>
-       <a href="/login" class="btn btn-outline-dark btn-md">Login</a>
+      <button class="btn btn-outline-dark btn-md" type="submit">Altera senha</button>
+       <a href="/cadastro" class="btn btn-outline-dark btn-md">Cancelar</a>
       </div>     
     </form>
   </div>
@@ -23,4 +29,5 @@
 </div>
 
 <script>
+  limpaStorage()
 </script>
