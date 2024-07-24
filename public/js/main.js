@@ -9,9 +9,29 @@ function verificaLogado() {
   }
 }
 
+async function EfetuaLogin(e) {
+  e.preventDefault();
+
+  const form = document.getElementById("form");
+  const formData = new FormData(form);
+
+  try {
+    const response = await fetch("/login", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/x-www-form-urlencoded",
+      },
+      body: new URLSearchParams(formData),
+    });
+
+    console.log("response login", response);
+    console.log("response", response.data);
+    return res.status(200).send("OK");
+  } catch (ex) {}
+}
+
 async function cadastraUser(e) {
   e.preventDefault();
-  console.log("oiiiiiiiiiiiiiiiiiiiiiiiiiiiiii");
   const form = document.getElementById("form");
 
   if (form.senha.value !== form.confirmSenha.value) {
@@ -57,7 +77,6 @@ async function cadastraUser(e) {
       },
       body: new URLSearchParams(formData).toString(),
     });
-    console.log("response", response);
     if (!response.ok) {
       const responseData = await response.json();
       const errMsg = responseData.err;
@@ -122,10 +141,27 @@ async function redefineSenha(e) {
       body: new URLSearchParams(formData).toString(),
     });
 
-    console.log("response", res);
+    const divErro = document.querySelector(".divErro");
+    divErro.innerHTML = "Email enviado!";
+    divErro.style.background = "green";
+    divErro.style.display = "flex";
+
+    setTimeout(() => {
+      divErro.innerHTML = "";
+      divErro.style.display = "none";
+      irParaPagina("/login");
+    }, 2000);
+
     return;
   } catch (ex) {
-    console.log("ex", ex);
+    const divErro = document.querySelector(".divErro");
+    divErro.innerHTML = "Não foi possível enviar email";
+    divErro.style.display = "flex";
+
+    setTimeout(() => {
+      divErro.innerHTML = "";
+      divErro.style.display = "none";
+    }, 2000);
     return;
   }
 }

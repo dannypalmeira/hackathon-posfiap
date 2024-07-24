@@ -5,6 +5,7 @@ const routes = express.Router();
 
 routes.get("/usuarios", usuarioController.listaUsuarios);
 routes.get("/usuarios/:id", usuarioController.listaUsuarioPorId);
+routes.post("/login", usuarioController.login);
 routes.post("/usuarios", usuarioController.cadastrarUsuario);
 routes.post("/redefineSenha", usuarioController.redefineSenha);
 

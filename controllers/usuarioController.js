@@ -28,6 +28,23 @@ class usuarioController {
     }
   }
 
+  static async login(req, res) {
+    const {email, senha} = req.body;
+
+    if (!email || !senha) {
+      return res.status(500).send({err: "Preencha todos os campos"});
+    }
+    try {
+      const usuario = await usuario.findOne({email: email});
+
+      if (!usuario) {
+        return res.status(500).send({err: "Usuario nao encontrado"});
+      }
+      console.log("usuario", usuario);
+      return;
+    } catch {}
+  }
+
   static async cadastrarUsuario(req, res) {
     try {
       const {nome, email, senha, tipo} = req.body;
@@ -55,6 +72,7 @@ class usuarioController {
         .json({message: `${erro.message} - falha ao cadastrar usuario`});
     }
   }
+
   static async atualizaUsuario(req, res) {
     try {
       const id = req.params.id;
@@ -81,7 +99,6 @@ class usuarioController {
 
   static async redefineSenha(req, res) {
     const {email} = req.body;
-    console.log("controller");
     if (!email) {
       return res.status(500).send({err: "Por favor, preencha o email"});
     }
@@ -107,7 +124,6 @@ class usuarioController {
 }
 
 async function transporterEmail() {
-  console.log(process.env.HOST_EMAIL, process.env.EMAIL, process.env.SENHA);
   const transporter = nodemailer.createTransport({
     host: process.env.HOST_EMAIL,
     service: "gmail",
