@@ -24,9 +24,23 @@ async function EfetuaLogin(e) {
       body: new URLSearchParams(formData),
     });
 
-    console.log("response login", response);
-    console.log("response", response.data);
-    return res.status(200).send("OK");
+    const data = await response.json();
+
+    if (data.err) {
+      const divErro = document.querySelector(".divErro");
+      divErro.innerHTML = data.err;
+      divErro.style.display = "flex";
+      setTimeout(() => {
+        divErro.innerHTML = "";
+        divErro.style.display = "none";
+      }, 2000);
+      return;
+    }
+
+    sessionStorage.setItem("Nome", data.nome);
+    sessionStorage.setItem("id", data.id);
+    sessionStorage.setItem("tipo", data.tipo);
+    irParaPagina("/ongs");
   } catch (ex) {}
 }
 
@@ -87,6 +101,7 @@ async function cadastraUser(e) {
       setTimeout(() => {
         divErro.innerHTML = "";
         divErro.style.display = "none";
+        irParaPagina("/login");
       }, 2000);
     } else {
       const divErro = document.querySelector(".divErro");
@@ -99,8 +114,6 @@ async function cadastraUser(e) {
         divErro.style.display = "none";
       }, 2000);
     }
-
-    irParaPagina("/login");
   } catch {}
 }
 

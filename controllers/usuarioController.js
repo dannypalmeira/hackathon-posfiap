@@ -32,17 +32,28 @@ class usuarioController {
     const {email, senha} = req.body;
 
     if (!email || !senha) {
-      return res.status(500).send({err: "Preencha todos os campos"});
+      return res.status(500).json({err: "Preencha todos os campos"});
     }
     try {
-      const usuario = await usuario.findOne({email: email});
+      const user = await usuario.findOne({email: email});
 
-      if (!usuario) {
-        return res.status(500).send({err: "Usuario nao encontrado"});
+      if (!user) {
+        return res.status(500).json({err: "Usuario nao encontrado"});
       }
-      console.log("usuario", usuario);
-      return;
-    } catch {}
+      const senhaValida = bcrypt.compareSync(senha, user.senha);
+
+      if (!senhaValida) {
+        return res.status(500).json({err: "Email ou senha invalido."});
+      }
+
+      return res.status(200).json({
+        id: user._id.toString(),
+        nome: user.nome,
+        tipo: user.tipo,
+      });
+    } catch (ex) {
+      return res.status(500).json({err: "Não foi possível efetuar o login"});
+    }
   }
 
   static async cadastrarUsuario(req, res) {
@@ -100,7 +111,7 @@ class usuarioController {
   static async redefineSenha(req, res) {
     const {email} = req.body;
     if (!email) {
-      return res.status(500).send({err: "Por favor, preencha o email"});
+      return res.status(500).json({err: "Por favor, preencha o email"});
     }
 
     const token = jwt.sign({id: email}, process.env.TOKEN, {expiresIn: 600});
@@ -114,12 +125,12 @@ class usuarioController {
     transporter.sendMail(mailOptions, async (err, info) => {
       if (err) {
         console.log("err", err);
-        return res.status(500).send({err: "Não foi possível enviar email."});
+        return res.status(500).json({err: "Não foi possível enviar email."});
       }
       transporter.close();
     });
     transporter.close();
-    return res.status(200).send({message: "Email enviado"});
+    return res.status(200).json({message: "Email enviado"});
   }
 }
 
