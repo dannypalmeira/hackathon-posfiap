@@ -24,18 +24,46 @@ class ongController {
   }
 
   static async listarOngs(req, res) {
-    try {
-      const listaongs = await ong.find({});
-      res.render("ongs/paginaOngs", {
-        layout: "../views/layout/main",
+    let perPage = 2;
+    let page = req.query.page || 1;
+
+    const locals = {
         title: "Lista de ONGs",
-        description: "Veja a lista das ONGs disponíveis.",
-        ongs: listaongs,
-      });
-    } catch (erro) {
-      res.status(500).send("Erro ao listar ONGs: " + erro.message);
+        description: "Veja a lista das ONGs disponíveis",
+    };
+
+    try {
+        const listaongs = await ong.aggregate([
+            { $sort: { updatedAt: -1 } },
+            {
+                $project: {
+                    nome_org: { $substr: [ "$nome_org", 0, 30 ] },
+                    descricao: { $substr: [ "$descricao", 0, 300 ] },
+                    logo: { $substr: [ "$logo", 0, 2000 ] },
+                    area: { $substr: [ "$area", 0, 100 ] },
+                    contat: { $substr: [ "$contato", 0, 3 ] },
+                },
+            }
+        ])
+        .skip(perPage * page - perPage)
+        .limit(perPage)
+        .exec();
+
+        const count = await ong.countDocuments();
+
+        res.render("ongs/paginaOngs", {
+            locals,
+            ongs: listaongs,
+            layout: "../views/layout/main",
+            current: page,
+            pages: Math.ceil(count / perPage)
+        });
+        
+    } catch (error) {
+        console.log(error);
+        res.status(500).send("Erro interno do servidor.");
     }
-  }
+};
 
   static async listaOngPorId(req, res) {
     try {

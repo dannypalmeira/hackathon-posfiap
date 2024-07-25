@@ -1,50 +1,89 @@
 <div class="container-fluid container-fluid-custom pb-5 mb-5">
-
-
   <div class="row mb-4">
-      <div class="col">
-        <h1 class="h3">Aqui estão as ONGS disponíveis.</h1>
-        <div class="text-end" id="cadastraOng">
-          <a href="/ongs/cadastrarOng" class="btn btn-primary">+ Cadastrar uma ONG</a>
-        </div>
-      
+    <div class="col">
+      <h1 class="h3">Aqui estão as ONGS disponíveis.</h1>
+      <div class="text-end" id="cadastraOng">
+        <a href="/ongs/cadastrarOng" class="btn btn-primary"
+          >+ Cadastrar uma ONG</a
+        >
       </div>
-      </div>
-  
-   
-    <div class="row">
-      <% if (ongs.length > 0) { for(var i=0; i < ongs.length; i++) { %>
-        <div class="col-sm-3 mb-4">
-          <div class="card border-primary" style="min-height: 210px">
-            <a href="/ongs/nome/<%= encodeURIComponent(ongs[i].nome_org) %>" class="card-body text-decoration-none">
-              <img src="<%= ongs[i].logo %>">
-              <h5 class="card-title"><%= ongs[i].nome_org %></h5>
-              <p class="card-text"><%= ongs[i].area %></p>
-              <p class="card-text"><strong>Contato:</strong> <%= ongs[i].contato %></p>
-              <button type="button" class="btn btn-outline-dark btn-sm">Ver detalhes</button>
-            </a>
-          </div>
-        </div>
-      <%  }} else { %>
-        <div class="row">
-          <div class="col-sm-3 mb-4">
-            <p>Nenhuma ONG encontrada.</p>
-          </div>
-        </div>
-      <% } %>
     </div>
-
-  
-  
   </div>
-  <script>
-    verificaLogado()
-    function verificaAdm(){
-      const div = document.getElementById("cadastraOng")
-      const tipo = sessionStorage.getItem("tipo")
-      if(tipo!=="Adm"){
-        div.style.display="none"
-      }
+
+  <div class="row">
+    <% if (ongs.length > 0) { for(var i=0; i < ongs.length; i++) { %>
+    <div class="col-sm-3 mb-4">
+      <div class="card border-primary" style="min-height: 210px">
+        <a
+          href="/ongs/nome/<%= encodeURIComponent(ongs[i].nome_org) %>"
+          class="card-body text-decoration-none"
+        >
+          <img src="<%= ongs[i].logo %>" />
+          <h5 class="card-title"><%= ongs[i].nome_org %></h5>
+          <p class="card-text"><%= ongs[i].area %></p>
+          <p class="card-text">
+            <strong>Contato:</strong> <%= ongs[i].contato %>
+          </p>
+          <button type="button" class="btn btn-outline-dark btn-sm">
+            Ver detalhes
+          </button>
+        </a>
+      </div>
+    </div>
+    <% }} else { %>
+    <div class="row">
+      <div class="col-sm-3 mb-4">
+        <p>Nenhuma ONG encontrada.</p>
+      </div>
+    </div>
+    <% } %>
+  </div>
+
+  <% if(ongs.length > 0) { %>
+  <nav aria-label="Page navigation example">
+    <ul class="pagination justify-content-center mt-5">
+      <% if(current == 1) { %>
+      <li class="page-item disabled">
+        <a class="page-link" href="#">Primeira</a>
+      </li>
+      <% } else { %>
+      <li class="page-item">
+        <a class="page-link" href="/ongs">Primeira</a>
+      </li>
+      <% } %> <% var i = (Number(current) > 5 ? Number(current) - 4 : 1) %> <%
+      if (i !== 1 ) { %>
+      <li class="page-item"><a class="page-link" href="#">...</a></li>
+      <% } %> <% for (; i <= (Number(current) + 4) && i <= pages; i++) { %> <%
+      if(i == current ) { %>
+      <li class="page-item">
+        <a class="page-link disabled" href="#"><%= i %></a>
+      </li>
+      <% } else { %>
+      <li class="page-item">
+        <a class="page-link" href="/ongs/?page=<%= i %>"><%= i %></a>
+      </li>
+      <% } %> <% if(i == Number(current) + 4 && i < pages) { %>
+      <li class="page-item"><a class="page-link" href="#">...</a></li>
+      <% } %> <% } %> <% if (current == pages) { %>
+      <li class="page-item disabled"><a class="page-link">Última</a></li>
+      <% } else { %>
+      <li class="page-item">
+        <a href="/ongs/?page=<%= pages %>" class="page-link">Última</a>
+      </li>
+      <% } %>
+    </ul>
+  </nav>
+
+  <% } %>
+</div>
+<script>
+  verificaLogado();
+  function verificaAdm() {
+    const div = document.getElementById("cadastraOng");
+    const tipo = sessionStorage.getItem("tipo");
+    if (tipo !== "Adm") {
+      div.style.display = "none";
     }
-    verificaAdm()
-  </script>
+  }
+  verificaAdm();
+</script>

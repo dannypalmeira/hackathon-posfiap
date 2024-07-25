@@ -40,7 +40,7 @@ svg {
   max-width: 100%;
 }
 
-.modal-dialog button{
+#user button{
   background-color: transparent;
   background-image: none;
   border: 0;
