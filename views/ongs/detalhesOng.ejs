@@ -14,7 +14,7 @@
         class="btn btn-danger me-2"
         onclick="confirmDelete('<%= ong._id %>')"
       >
-          Excluir ONG
+          Excluir cadastro
         </button>
       </div>
     </div>
@@ -40,7 +40,7 @@
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title">Excluir ONG</h5>
+        <h5 class="modal-title">Excluir cadastro</h5>
         <button
           type="button"
           class="close"
@@ -52,7 +52,7 @@
       </div>
       <div class="modal-body">
         <p>
-          Cancelar a OMG <b class="fw-bold"><%= ong.nome_org %></b><br />
+          Cancelar a ONG <b class="fw-bold"><%= ong.nome_org %></b><br />
           Você tem certeza?
         </p>
       </div>
@@ -61,45 +61,8 @@
           Fechar
         </button>
        
-        <button type="button" class="btn btn-danger" onclick="deleteOng()">Excluir ONG</button>
+        <button type="button" class="btn btn-danger" onclick="deleteOng()">Excluir cadastro</button>
       </div>
     </div>
   </div>
 </div>
-
-<script>
-  let ongIdToDelete = null;
-  function confirmDelete(id) {
-    ongIdToDelete = id;
-     new bootstrap.Modal(document.getElementById('deleteModal')).show();
-  }
-
-  function deleteOng() {
-  if (!ongIdToDelete) return; 
-
-  const url = `/ongs/${ongIdToDelete}`;
-  console.log(`Fazendo a solicitação DELETE para: ${url}`);
-
-  fetch(url, {
-    method: 'DELETE',
-    headers: {
-      'Content-Type': 'application/json',
-    },
-  })
-  .then(response => {
-    if (response.ok) {
-      return response.json();
-    } else {
-      throw new Error('Erro ao excluir a ONG');
-    }
-  })
-  .then(data => {
-  console.log(data.message);
-  console.log('Redirecionando para /ongs');
-    window.location.href = '/ongs';
-  })
-  .catch(error => {
-    console.error('Erro na exclusão:', error);
-  });
-}
-</script>

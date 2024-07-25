@@ -33,14 +33,6 @@ router.get("/cadastro", (req, res) => {
   res.render("cadastro", {locals, erro: null});
 });
 
-router.get("/ongs", (req, res) => {
-  const locals = {
-    title: "HACKA | GRUPO O",
-    description: "Cadastrar ONG",
-  };
-  res.render("/ongs", {locals, erro: null});
-});
-
 router.get("/alteraSenha/:token?", (req, res) => {
   const locals = {
     title: "HACKA | GRUPO O",
