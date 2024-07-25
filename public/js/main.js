@@ -220,11 +220,65 @@ function deleteOng() {
       }
     })
     .then((data) => {
-      console.log(data.message);
       console.log("Redirecionando para /ongs");
       window.location.href = "/ongs";
     })
     .catch((error) => {
       console.error("Erro na exclusão:", error);
     });
+}
+
+async function alteraSenha(e) {
+  e.preventDefault();
+  const form = document.getElementById("form");
+  const divErro = document.querySelector(".divErro");
+  if (form.senha.value !== form.confirmSenha.value) {
+    divErro.innerHTML = "As senhas nao coincidem.";
+    divErro.style.display = "flex";
+
+    setTimeout(() => {
+      divErro.innerHTML = "";
+      divErro.style.display = "none";
+    }, 2500);
+  }
+
+  if (!validaSenhaForte(form.senha.value)) {
+    divErro.innerHTML =
+      "As senhas precisam tem caracteres especiais, 5 caracteres, número, letra maiuscula e minuscula";
+    divErro.style.display = "flex";
+    setTimeout(() => {
+      divErro.innerHTML = "";
+      divErro.style.display = "none";
+    }, 2000);
+  }
+
+  const formData = new FormData(form);
+  try {
+    const response = await fetch("/alteraSenha", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/x-www-form-urlencoded",
+      },
+      body: new URLSearchParams(formData),
+    });
+
+    const data = await response.json();
+    if (data.err) {
+      divErro.innerHTML = data.err;
+      divErro.style.display = "flex";
+      setTimeout(() => {
+        divErro.innerHTML = "";
+        divErro.style.display = "none";
+      }, 2300);
+    }
+    divErro.innerHTML = "Senha alterada";
+    divErro.style.background = "green";
+    divErro.style.display = "flex";
+    setTimeout(() => {
+      divErro.innerHTML = "";
+      divErro.style.display = "none";
+      limpaStorage();
+      irParaPagina("/login");
+    }, 2500);
+  } catch (ex) {}
 }

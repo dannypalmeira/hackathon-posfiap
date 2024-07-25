@@ -6,7 +6,7 @@
       </div>
 
       <div class="modal-body p-5 pt-0" id="divForm">
-    <form id="form" onsubmit="EfetuaLogin(event)"> 
+    <form id="form" onsubmit="alteraSenha(event)"> 
       <div class="form-floating mb-3">
         <input type="text" class="form-control rounded-3" id="email" name="email" required placeholder =""/>
         <label id="lblEmail">E-mail</label>
@@ -14,6 +14,10 @@
       <div class="form-floating mb-3">
         <input type="password" class="form-control rounded-3" id="senha" name="senha" required placeholder =""/>
         <label id="lblSenha">Senha</label>
+      </div>
+      <div class="form-floating mb-3">
+        <input type="password" class="form-control rounded-3" id="confirmSenha" name="confirmSenha" required placeholder =""/>
+        <label id="lblSenha">Confirma senha</label>
       </div>
 
       <div class="divErro" role="alert"></div>
@@ -29,5 +33,14 @@
 </div>
 
 <script>
-  limpaStorage()
+function verificaLogado(){
+  const pathParts = window.location.pathname.split('/');
+  const token =  pathParts[pathParts.length - 1];
+  const id= sessionStorage.getItem("id")
+  console.log("oiiii",id,token)
+  if((!id && !token) || token!=="alteraSenha"){
+  irParaPagina("/login")
+  }
+}
+verificaLogado()
 </script>

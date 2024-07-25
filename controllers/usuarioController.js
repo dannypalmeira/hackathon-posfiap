@@ -62,6 +62,14 @@ class usuarioController {
       if (!nome || !email || !senha || !tipo) {
         return res.status(500).json({err: "Preencha todos os campos."});
       }
+
+      const existe = await usuario.findOne({email: email});
+      if (existe) {
+        return res
+          .status(500)
+          .json({err: "Já existe um usuário com este email"});
+      }
+
       const newSenha = bcrypt.hashSync(senha, 5);
       const novousuario = await usuario.create({
         nome,
@@ -117,18 +125,36 @@ class usuarioController {
       from: process.env.EMAIL,
       to: email,
       subject: "Redefinição de senha",
-      html: `<h3><a href="http://localhost:3000/alteraSenha/token=${token}">Clique aqui</a> para redefinir sua senha.</h3>`,
+      html: `<h3><a href="http://localhost:3000/alteraSenha/${token}">Clique aqui</a> para redefinir sua senha.</h3>`,
     };
     const transporter = await transporterEmail();
     transporter.sendMail(mailOptions, async (err, info) => {
       if (err) {
-        console.log("err", err);
         return res.status(500).json({err: "Não foi possível enviar email."});
       }
       transporter.close();
     });
     transporter.close();
     return res.status(200).json({message: "Email enviado"});
+  }
+
+  static async alteraSenha(req, res) {
+    const {email, senha, confirmSenha} = req.body;
+    if (!email || !senha || !confirmSenha) {
+      return res.status(500).json({err: "preencha todos os campos."});
+    }
+
+    const newSenha = bcrypt.hashSync(senha, 5);
+
+    const user = await usuario.findOneAndUpdate(
+      {email: email},
+      {senha: newSenha},
+      {
+        new: true,
+      }
+    );
+
+    return res.status(200).json({message: "Senha alterada"});
   }
 }
 
