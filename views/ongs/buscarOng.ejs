@@ -5,9 +5,10 @@
       <% searchResults.forEach(function (ong, index) { %>
 
         <a href="/ongs/<%= ong._id %>">
-          <h4><%= ong.nome_org %></h4>
+          <h4>
+            <%= ong.nome_org %>
+          </h4>
         </a>
-        <p class="card-text"><strong>Contato:</strong> <%= ong.contato %></p>
 
         <% }) %>
           <% } else { %>
