@@ -41,3 +41,16 @@ router.get("/alteraSenha/:token?", (req, res) => {
   res.render("alteraSenha", {locals, erro: null});
 });
 export default router;
+
+
+router.get('/ongs', (req, res) => {
+  const locals = {
+    title: "HACKA | GRUPO O",
+    description: "Página ONGs",
+  };
+  res.render('ongs', {
+    user: req.session.user, 
+    isAdmin: req.session.user && req.session.user.tipo === "Adm",
+    ongs: ongs
+  });
+});

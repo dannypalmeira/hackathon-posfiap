@@ -38,7 +38,7 @@ function verificaLogado(){
   const token =  pathParts[pathParts.length - 1];
   const id= sessionStorage.getItem("id")
   console.log("oiiii",id,token)
-  if((!id && !token) || token!=="alteraSenha"){
+  if((!id && !token) || token==="alteraSenha"){
   irParaPagina("/login")
   }
 }

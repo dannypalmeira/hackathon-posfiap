@@ -1,15 +1,24 @@
 function irParaPagina(rota) {
   window.location.href = rota;
 }
+
 function verificaLogado() {
   const id = sessionStorage.getItem("id");
   const nome = sessionStorage.getItem("nome");
   const tipo = sessionStorage.getItem("tipo");
+
   if (!id || !tipo || !nome) {
     sessionStorage.clear();
-
     irParaPagina("/login");
   }
+
+  if (tipo !== "Adm") {
+    const divCadastraOng = document.getElementById("cadastraOng");
+    if (divCadastraOng) {
+      divCadastraOng.style.display = "none";
+    }
+  }
+
 }
 
 async function EfetuaLogin(e) {
