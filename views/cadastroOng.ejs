@@ -1,39 +1,42 @@
-<div class="container-fluid container-fluid-custom pb-5 mb-5">
-
-    <div class="row mb-4">
-        <div class="col">
-            <nav aria-label="breadcrumb">
-                <ol class="breadcrumb">
-                    <li class="breadcrumb-item"><a href="/ongs">ONG's</a></li>
-                    <li class="breadcrumb-item active">Cadastrar ONG</li>
-                </ol>
-            </nav>
-            <div class="col d-flex justify-content-between align-items-center">
-                <h1 class="h3">Cadastrar ONG</h1>
-            </div>
-        </div>
+<div class="modal modal-sheet position-static d-block p-4 py-md-5" tabindex="-1" role="dialog" id="modalSignin">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content rounded-4 shadow">
+          <div class="modal-header p-5 pb-4 border-bottom-0">
+              <h1 class="fw-bold mb-0 fs-2">Adicionar ONG</h1>
+          </div>
+  
+          <div class="modal-body p-5 pt-0" id="divForm">
+              <form id="form" onsubmit="cadastrarOng(event)">
+                  <div class="form-floating mb-3">
+                      <input class="form-control rounded-3" type="text" id="nome_org" name="nome_org" required placeholder=""/>
+                      <label for="nome_org">Nome</label>
+                  </div>
+                  <div class="form-floating mb-3">
+                      <input class="form-control rounded-3" type="text" id="descricao" name="descricao" required placeholder=""/>
+                      <label for="descricao">Descrição</label>
+                  </div>
+                  <div class="form-floating mb-3">
+                      <input class="form-control rounded-3" type="number" id="contato" name="contato" required placeholder=""/>
+                      <label for="contato">Contato</label>
+                  </div>
+                  <div class="form-floating mb-3">
+                      <input class="form-control rounded-3" type="text" id="area" name="area" required placeholder=""/>
+                      <label for="area">Área</label>
+                  </div>
+                  <div class="form-floating mb-3">
+                      <input class="form-control rounded-3" type="text" id="logo" name="logo" required placeholder=""/>
+                      <label for="logo">Link da Imagem</label>
+                  </div>
+                  <div class="divErro"></div>
+  
+                  <div style="display: flex; flex-direction: row; justify-content: space-around; margin-top: 2em;">
+                      <button class="btn btn-primary btn-md" type="submit">Criar</button>
+                      <a href="/ongs" class="btn btn-secondary btn-md">Cancelar</a>
+                  </div>
+              </form>
+          </div>
+      </div>
     </div>
-
-    <form id="form" onsubmit="cadastrarOng(event)" class="position-relative">
-        <div class="container-fluid">
-            <div class="row">
-                <div class="form-group mb-4">
-                    <input type="text" class="form-control fw-bold border-0 fs-4" id="nome_org" name="nome_org"
-                        placeholder="Nome do OMG" required>
-                    <input type="text" class="form-control fw-bold border-0 fs-4" id="area" name="area"
-                        placeholder="Localidade" required>
-                    <input type="number" class="form-control fw-bold border-0 fs-4" id="contato" name="contato"
-                        placeholder="Contato" required>
-                    <input type="text" class="form-control fw-bold border-0 fs-4" id="logo" name="logo"
-                        placeholder="Url Imagem" required>
-                    <textarea required class="form-control pt-5 fs-4 mb-4" id="descricao" name="descricao"
-                        placeholder="Adicione uma breve descrição..." rows="12"></textarea>
-                    <button type="submit" class="btn btn-primary btn-lg">Salvar</button>
-                </div>
-            </div>
-        </div>
-    </form>
-
 </div>
 
 <script>
