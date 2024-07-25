@@ -188,3 +188,40 @@ async function redefineSenha(e) {
     return;
   }
 }
+
+//cadastro ONG
+
+let ongIdToDelete = null;
+  function confirmDelete(id) {
+    ongIdToDelete = id;
+     new bootstrap.Modal(document.getElementById('deleteModal')).show();
+  }
+
+  function deleteOng() {
+  if (!ongIdToDelete) return; 
+
+  const url = `/ongs/${ongIdToDelete}`;
+  console.log(`Fazendo a solicitação DELETE para: ${url}`);
+
+  fetch(url, {
+    method: 'DELETE',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+  })
+  .then(response => {
+    if (response.ok) {
+      return response.json();
+    } else {
+      throw new Error('Erro ao excluir a ONG');
+    }
+  })
+  .then(data => {
+  console.log(data.message);
+  console.log('Redirecionando para /ongs');
+    window.location.href = '/ongs';
+  })
+  .catch(error => {
+    console.error('Erro na exclusão:', error);
+  });
+}

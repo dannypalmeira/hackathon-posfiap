@@ -1,19 +1,18 @@
 <div class="container-fluid container-fluid-custom pb-5 mb-5">
 
-    <!-- <div class="row">
-      <% if(searchResults != '') { %>
-        <% searchResults.forEach(function (ong, index) { %>
-          
-          <a href="/ongs/<%= ong._id %>">
+  <div class="row">
+    <% if(searchResults !='' ) { %>
+      <% searchResults.forEach(function (ong, index) { %>
+
+        <a href="/ongs/<%= ong._id %>">
           <h4><%= ong.nome_org %></h4>
-          </a>
-  
+        </a>
+        <p class="card-text"><strong>Contato:</strong> <%= ong.contato %></p>
+
         <% }) %>
-      <% } else { %>
-        <p>Nenhuma ONG foi encontrada.</p>
-      <% } %>
-  
-    </div>
-   -->
+          <% } else { %>
+            <p>Nenhuma ONG foi encontrada.</p>
+            <% } %>
+
   </div>
-  
+</div>

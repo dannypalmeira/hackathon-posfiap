@@ -2,6 +2,28 @@ import ong from "../models/Ong.js";
 
 // no geral foi dividido a chamada da api para atraves do controller criado utilizar somente as rotas necessaria
 class ongController {
+  static formularioCadastro (req, res) {
+    const locals = {
+      title: "Cadastrar ONG",
+      description: "Página de Cadastro ONG",
+    };
+    res.render("cadastroOng", locals);
+  };
+
+
+  static async cadastrarOng(req, res) {
+    //console.log("Dados recebidos:", req.body);
+    const novaOng = new ong(req.body);
+    try {
+      await novaOng.save();
+      res.status(201).json({message: "Criado com sucesso", ong: novaOng});
+    } catch (erro) {
+      res
+        .status(500)
+        .json({message: `${erro.message} - falha ao cadastrar ong`});
+    }
+  }
+
   static async listarOngs(req, res) {
     try {
       const listaongs = await ong.find({});
@@ -19,7 +41,7 @@ class ongController {
   static async listaOngPorId(req, res) {
     try {
       const ongEncontrado = await ong.findById(req.params.id);
-      console.log(ongEncontrado);
+      //console.log(ongEncontrado);
       if (ongEncontrado) {
         res.render("ongs/detalhesOng", {
           layout: "../views/layout/main",
@@ -35,16 +57,27 @@ class ongController {
     }
   }
 
-  static async cadastrarOng(req, res) {
+  static async listaOngPorNome(req, res) {
     try {
-      const novoong = await ong.create(req.body);
-      res.status(201).json({message: "Criado com sucesso", ong: novoong});
+      const nome = decodeURIComponent(req.params.nome);
+      const ongEncontrado = await ong.findOne({ nome_org: nome });
+      //console.log(ongEncontrado);
+      if (ongEncontrado) {
+        res.render("ongs/detalhesOng", {
+          layout: "../views/layout/main",
+          title: ongEncontrado.nome_org,
+          description: ongEncontrado.descricao,
+          ong: ongEncontrado,
+        });
+      } else {
+        res.status(404).send("ONG não encontrada.");
+      }
     } catch (erro) {
-      res
-        .status(500)
-        .json({message: `${erro.message} - falha ao cadastrar ong`});
+      res.status(500).send("Erro ao consultar ONG: " + erro.message);
     }
   }
+  
+    
   static async atualizaOng(req, res) {
     try {
       const id = req.params.id;
@@ -59,8 +92,7 @@ class ongController {
 
   static async excluiOng(req, res) {
     try {
-      const id = req.params.id;
-      await ong.findByIdAndDelete(id);
+      await ong.deleteOne({ _id: req.params.id });
       res.status(200).json({message: "ong excluido"});
     } catch (erro) {
       res

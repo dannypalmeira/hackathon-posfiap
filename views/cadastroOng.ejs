@@ -1,0 +1,79 @@
+<div class="modal modal-sheet position-static d-block p-4 py-md-5" tabindex="-1" role="dialog" id="modalSignin">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content rounded-4 shadow">
+          <div class="modal-header p-5 pb-4 border-bottom-0">
+              <h1 class="fw-bold mb-0 fs-2">Adicionar ONG</h1>
+          </div>
+  
+          <div class="modal-body p-5 pt-0" id="divForm">
+              <form id="form" onsubmit="cadastrarOng(event)">
+                  <div class="form-floating mb-3">
+                      <input class="form-control rounded-3" type="text" id="nome_org" name="nome_org" required placeholder=""/>
+                      <label for="nome_org">Nome</label>
+                  </div>
+                  <div class="form-floating mb-3">
+                      <input class="form-control rounded-3" type="text" id="descricao" name="descricao" required placeholder=""/>
+                      <label for="descricao">Descrição</label>
+                  </div>
+                  <div class="form-floating mb-3">
+                      <input class="form-control rounded-3" type="number" id="contato" name="contato" required placeholder=""/>
+                      <label for="contato">Contato</label>
+                  </div>
+                  <div class="form-floating mb-3">
+                      <input class="form-control rounded-3" type="text" id="area" name="area" required placeholder=""/>
+                      <label for="area">Área</label>
+                  </div>
+                  <div class="form-floating mb-3">
+                      <input class="form-control rounded-3" type="text" id="logo" name="logo" required placeholder=""/>
+                      <label for="logo">Link da Imagem</label>
+                  </div>
+                  <div class="divErro"></div>
+  
+                  <div style="display: flex; flex-direction: row; justify-content: space-around; margin-top: 2em;">
+                      <button class="btn btn-primary btn-md" type="submit">Criar</button>
+                      <a href="/ongs" class="btn btn-secondary btn-md">Cancelar</a>
+                  </div>
+              </form>
+          </div>
+      </div>
+    </div>
+</div>
+
+<script>
+    function cadastrarOng(event) {
+        event.preventDefault();
+        
+        const nome_org = document.getElementById('nome_org').value;
+        const descricao = document.getElementById('descricao').value;
+        const contato = document.getElementById('contato').value;
+        const area = document.getElementById('area').value;
+        const logo = document.getElementById('logo').value;
+
+    
+        console.log('Dados do formulário:', { nome_org, descricao, contato, area, logo });
+        
+        fetch('/ongs/cadastrarOng', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ nome_org, descricao, contato, area, logo })
+        })
+        .then(response => {
+            console.log('Resposta da requisição:', response);
+            return response.json();
+        })
+        .then(data => {
+            console.log('Dados retornados pelo servidor:', data);
+            
+            if (data.message === "Criado com sucesso") {
+                window.location.href = "/ongs"; 
+            } else {
+                console.log('Erro:', data.err);
+            }
+        })
+        .catch((error) => {
+            console.error('Erro na requisição:', error);
+        });
+    }
+</script>

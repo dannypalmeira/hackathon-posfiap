@@ -4,15 +4,22 @@
       HACKA | Grupo O
     </a>
 
-    <div class="text-end" id="divBtns">
-      <% if (locals.currentUrl !== '/login' && locals.currentUrl !== '/cadastro') { %>
 
-    <!-- <form class="nav col-12 col-md-auto mb-2 justify-content-center mb-md-0  me-2" role="search" method="POST" action="/ongs/buscarOng">
-      <input type="search" name="searchTerm" class="form-control border-primary" placeholder="Buscar ONG..." aria-label="Buscar">
+    <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
+      <li><a href="/" class="nav-link px-2 text-secondary">Home</a></li>
+      <li><a href="/ongs" class="nav-link px-2 text-white">ONG's</a></li>
+    </ul>
+
+
+    <div class="text-end" id="divBtns">
+    <form class="nav col-12 col-md-auto flex-fill mb-2 justify-content-center mb-md-0" role="search" method="POST" action="/ongs/buscarOng">
+      <input type="search" name="searchTerm" class="form-control border-primary" placeholder="Buscar..." aria-label="Search">
+    </form>
+      <% if (locals.currentUrl !== '/login' && locals.currentUrl !== '/cadastro') { %>
         <% } else { %>      
         <a href="/login" type="button" class="btn btn-warning">Sair</a>
       <% } %>
-    </div> -->
+    </div> 
 </header>
 </div>
 
