@@ -4,9 +4,10 @@
   <div class="row mb-4">
       <div class="col">
         <h1 class="h3">Aqui estão as ONGS disponíveis.</h1>
-        <div class="text-end">
+        <div class="text-end" id="cadastraOng">
           <a href="/ongs/cadastrarOng" class="btn btn-primary">+ Cadastrar uma ONG</a>
         </div>
+      
       </div>
       </div>
   
@@ -36,3 +37,14 @@
   
   
   </div>
+  <script>
+    verificaLogado()
+    function verificaAdm(){
+      const div = document.getElementById("cadastraOng")
+      const tipo = sessionStorage.getItem("tipo")
+      if(tipo!=="Adm"){
+        div.style.display="none"
+      }
+    }
+    verificaAdm()
+  </script>

@@ -2,9 +2,12 @@ function irParaPagina(rota) {
   window.location.href = rota;
 }
 function verificaLogado() {
-  const token = sessionStorage.getItem("token");
-  if (!token) {
+  const id = sessionStorage.getItem("id");
+  const nome = sessionStorage.getItem("nome");
+  const tipo = sessionStorage.getItem("tipo");
+  if (!id || !tipo || !nome) {
     sessionStorage.clear();
+
     irParaPagina("/login");
   }
 }
@@ -37,7 +40,7 @@ async function EfetuaLogin(e) {
       return;
     }
 
-    sessionStorage.setItem("Nome", data.nome);
+    sessionStorage.setItem("nome", data.nome);
     sessionStorage.setItem("id", data.id);
     sessionStorage.setItem("tipo", data.tipo);
     irParaPagina("/ongs");
@@ -192,36 +195,36 @@ async function redefineSenha(e) {
 //cadastro ONG
 
 let ongIdToDelete = null;
-  function confirmDelete(id) {
-    ongIdToDelete = id;
-     new bootstrap.Modal(document.getElementById('deleteModal')).show();
-  }
+function confirmDelete(id) {
+  ongIdToDelete = id;
+  new bootstrap.Modal(document.getElementById("deleteModal")).show();
+}
 
-  function deleteOng() {
-  if (!ongIdToDelete) return; 
+function deleteOng() {
+  if (!ongIdToDelete) return;
 
   const url = `/ongs/${ongIdToDelete}`;
   console.log(`Fazendo a solicitação DELETE para: ${url}`);
 
   fetch(url, {
-    method: 'DELETE',
+    method: "DELETE",
     headers: {
-      'Content-Type': 'application/json',
+      "Content-Type": "application/json",
     },
   })
-  .then(response => {
-    if (response.ok) {
-      return response.json();
-    } else {
-      throw new Error('Erro ao excluir a ONG');
-    }
-  })
-  .then(data => {
-  console.log(data.message);
-  console.log('Redirecionando para /ongs');
-    window.location.href = '/ongs';
-  })
-  .catch(error => {
-    console.error('Erro na exclusão:', error);
-  });
+    .then((response) => {
+      if (response.ok) {
+        return response.json();
+      } else {
+        throw new Error("Erro ao excluir a ONG");
+      }
+    })
+    .then((data) => {
+      console.log(data.message);
+      console.log("Redirecionando para /ongs");
+      window.location.href = "/ongs";
+    })
+    .catch((error) => {
+      console.error("Erro na exclusão:", error);
+    });
 }

@@ -40,6 +40,18 @@
 </div>
 
 <script>
+    verificaLogado()
+    function verificaAdm(){
+        const tipo=sessionStorage.getItem("tipo")
+        if(tipo!=="Adm"){
+            irParaPagina("/ongs")
+        }
+    }
+
+
+    verificaAdm()
+
+
     function cadastrarOng(event) {
         event.preventDefault();
         

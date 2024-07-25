@@ -2,14 +2,13 @@ import ong from "../models/Ong.js";
 
 // no geral foi dividido a chamada da api para atraves do controller criado utilizar somente as rotas necessaria
 class ongController {
-  static formularioCadastro (req, res) {
+  static formularioCadastro(req, res) {
     const locals = {
       title: "Cadastrar ONG",
       description: "Página de Cadastro ONG",
     };
     res.render("cadastroOng", locals);
-  };
-
+  }
 
   static async cadastrarOng(req, res) {
     //console.log("Dados recebidos:", req.body);
@@ -60,7 +59,7 @@ class ongController {
   static async listaOngPorNome(req, res) {
     try {
       const nome = decodeURIComponent(req.params.nome);
-      const ongEncontrado = await ong.findOne({ nome_org: nome });
+      const ongEncontrado = await ong.findOne({nome_org: nome});
       //console.log(ongEncontrado);
       if (ongEncontrado) {
         res.render("ongs/detalhesOng", {
@@ -76,8 +75,7 @@ class ongController {
       res.status(500).send("Erro ao consultar ONG: " + erro.message);
     }
   }
-  
-    
+
   static async atualizaOng(req, res) {
     try {
       const id = req.params.id;
@@ -92,7 +90,7 @@ class ongController {
 
   static async excluiOng(req, res) {
     try {
-      await ong.deleteOne({ _id: req.params.id });
+      await ong.deleteOne({_id: req.params.id});
       res.status(200).json({message: "ong excluido"});
     } catch (erro) {
       res
