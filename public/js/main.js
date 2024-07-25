@@ -71,6 +71,7 @@ async function cadastraUser(e) {
     }, 2000);
     return;
   }
+
   if (!document.querySelector('input[name="tipo"]:checked')) {
     const divErro = document.querySelector(".divErro");
     divErro.innerHTML =
@@ -91,18 +92,16 @@ async function cadastraUser(e) {
       },
       body: new URLSearchParams(formData).toString(),
     });
-    if (!response.ok) {
-      const responseData = await response.json();
-      const errMsg = responseData.err;
+    const data = await response.json();
+    if (data.err) {
       const divErro = document.querySelector(".divErro");
-      divErro.innerHTML = errMsg;
+      divErro.innerHTML = data.err;
       divErro.style.display = "flex";
-
       setTimeout(() => {
         divErro.innerHTML = "";
         divErro.style.display = "none";
-        irParaPagina("/login");
       }, 2000);
+      return;
     } else {
       const divErro = document.querySelector(".divErro");
       divErro.innerHTML = "Usuário cadastrado!";
@@ -112,6 +111,8 @@ async function cadastraUser(e) {
       setTimeout(() => {
         divErro.innerHTML = "";
         divErro.style.display = "none";
+
+        irParaPagina("/login");
       }, 2000);
     }
   } catch {}
@@ -154,6 +155,15 @@ async function redefineSenha(e) {
       body: new URLSearchParams(formData).toString(),
     });
 
+    const data = await res.json();
+    if (data.err) {
+      const divErro = document.querySelector(".divErro");
+      divErro.innerHTML = data.err;
+      divErro.style.display = "flex";
+      setTimeout(() => {
+        (divErro.innerHTML = ""), (divErro.style.display = "none");
+      }, 2500);
+    }
     const divErro = document.querySelector(".divErro");
     divErro.innerHTML = "Email enviado!";
     divErro.style.background = "green";

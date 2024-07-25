@@ -38,7 +38,7 @@ class usuarioController {
       const user = await usuario.findOne({email: email});
 
       if (!user) {
-        return res.status(500).json({err: "Usuario nao encontrado"});
+        return res.status(500).json({err: "Email ou senha invalido."});
       }
       const senhaValida = bcrypt.compareSync(senha, user.senha);
 
@@ -60,9 +60,7 @@ class usuarioController {
     try {
       const {nome, email, senha, tipo} = req.body;
       if (!nome || !email || !senha || !tipo) {
-        return res.render("cadastro", {
-          err: "Por favor, preencha todos os campos.",
-        });
+        return res.status(500).json({err: "Preencha todos os campos."});
       }
       const newSenha = bcrypt.hashSync(senha, 5);
       const novousuario = await usuario.create({
@@ -72,7 +70,7 @@ class usuarioController {
         tipo: tipo,
       });
       if (!("_id" in novousuario)) {
-        return res.render("cadastro", {
+        return res.status(500).json({
           err: "Erro ao criar usuario.",
         });
       }
@@ -80,7 +78,7 @@ class usuarioController {
     } catch (erro) {
       return res
         .status(500)
-        .json({message: `${erro.message} - falha ao cadastrar usuario`});
+        .json({err: `${erro.message} - falha ao cadastrar usuario`});
     }
   }
 
