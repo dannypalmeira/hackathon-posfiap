@@ -292,3 +292,67 @@ async function alteraSenha(e) {
     }, 2500);
   } catch (ex) {}
 }
+
+async function atualizaUsuario(event, id) {
+  event.preventDefault(); 
+
+  const form = event.target;
+  const formData = new FormData(form);
+
+  const data = {
+    nome: formData.get('nome'),
+    tipo: formData.get('tipo'),
+    email: formData.get('email')
+  };
+
+  const divErro = document.querySelector('.divErro');
+  
+  try {
+    const response = await fetch(`/usuarios/${id}`, {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(data)
+    });
+
+     console.log('Response:', response);
+    
+    const responseData = await response.json();
+    
+    if (!response.ok) {
+      throw new Error(responseData.err || 'Erro ao atualizar usuário');
+    }
+    
+    sessionStorage.setItem('nome', responseData.nome);
+    sessionStorage.setItem('tipo', responseData.tipo);
+    sessionStorage.setItem('email', responseData.email);
+
+    if (responseData.err) {
+      divErro.innerHTML = responseData.err;
+      divErro.style.background = 'red';
+      divErro.style.display = 'flex';
+      setTimeout(() => {
+        divErro.innerHTML = '';
+        divErro.style.display = 'none';
+      }, 2300);
+    } else {
+      divErro.innerHTML = 'Dados atualizados com sucesso!';
+      divErro.style.background = 'green';
+      divErro.style.display = 'flex';
+      setTimeout(() => {
+        divErro.innerHTML = '';
+        divErro.style.display = 'none';
+        window.location.href = '/ongs';
+      }, 2500);
+    }
+  } catch (error) {
+    divErro.innerHTML = 'Erro ao atualizar usuário. Tente novamente.';
+    divErro.style.background = 'red';
+    divErro.style.display = 'flex';
+    setTimeout(() => {
+      divErro.innerHTML = '';
+      divErro.style.display = 'none';
+    }, 2500);
+  }
+}

@@ -19,7 +19,7 @@
     <div class="relative inline-block text-left" id="divBtns">
       <% if (!user) { %>
       
-      <div><button type="button" class="btn btn-primary user-bt" data-bs-toggle="modal" data-bs-target="#testModal"> US </button></div>
+      <div><button type="button" class="btn btn-primary user-bt" data-bs-toggle="modal" data-bs-target="#testModal"> U </button></div>
 
       <div class="modal fade" id="testModal" tabindex="-1" aria-labelledby="testModalLabel" aria-hidden="true">
         <div class="modal-dialog" id="userPerfil">
@@ -67,10 +67,15 @@
 
 <script>
   document.addEventListener('DOMContentLoaded', function () {
-    document.getElementById('testButton1').addEventListener('click', function () {
-      console.log('Test Button 1 clicked');
-      window.location.href = '/perfil';
-    });
+    const userId = sessionStorage.getItem('id'); 
+    if (userId) {
+        document.getElementById('testButton1').addEventListener('click', function () {
+            console.log('Test Button 1 clicked');
+            window.location.href = `/perfil`;
+        });
+    } else {
+        console.error('User ID not found.');
+    }
 
     document.getElementById('testButton2').addEventListener('click', function () {
       console.log('Test Button 2 clicked');
@@ -81,5 +86,13 @@
       console.log('Test Button 2 clicked');
       window.location.href = '/login';
     });
+
+    const nome = sessionStorage.getItem('nome') || 'Usuário';
+
+   const inicial = nome.charAt(0).toUpperCase();
+  const userButton = document.querySelector('.user-bt');
+  if (userButton) {
+    userButton.textContent = inicial;
+  }
   });
 </script>
