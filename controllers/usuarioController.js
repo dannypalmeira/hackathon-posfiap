@@ -20,7 +20,6 @@ class usuarioController {
     try {
       const id = req.params.id;
       const usuarioEncontrado = await usuario.findById(id);
-      console.log(usuarioEncontrado);
 
       if (!usuarioEncontrado) {
         return res.status(404).json({message: "Usuário não encontrado"});
@@ -164,8 +163,16 @@ class usuarioController {
     if (!email) {
       return res.status(500).json({err: "Por favor, preencha o email"});
     }
+    const user = await usuario.findOne({email: email});
 
-    const token = jwt.sign({id: email}, process.env.TOKEN, {expiresIn: 600});
+    const id = {
+      nome: user.nome,
+      email: user.email,
+      logado: true,
+      tipo: user.tipo,
+      id: user._id.toString(),
+    };
+    const token = jwt.sign(id, process.env.TOKEN);
     const mailOptions = {
       from: process.env.EMAIL,
       to: email,

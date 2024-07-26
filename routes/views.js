@@ -26,10 +26,10 @@ router.get("/login", (req, res) => {
 });
 
 // se tiver algum erro avisa apenas copiei a de cima e troquei o locals
-router.get('/perfil', (req, res) => {
-  res.render('perfil', {
-    title: 'HACKA | GRUPO O',
-    description: 'Página de perfil do usuário',
+router.get("/perfil", (req, res) => {
+  res.render("perfil", {
+    title: "HACKA | GRUPO O",
+    description: "Página de perfil do usuário",
   });
 });
 
@@ -50,15 +50,14 @@ router.get("/alteraSenha/:token?", (req, res) => {
 });
 export default router;
 
-
-router.get('/ongs', (req, res) => {
+router.get("/ongs", (req, res) => {
   const locals = {
     title: "HACKA | GRUPO O",
     description: "Página ONGs",
   };
-  res.render('ongs', {
-    user: req.session.user, 
+  res.render("ongs", {
+    user: req.session.user,
     isAdmin: req.session.user && req.session.user.tipo === "Adm",
-    ongs: ongs
+    ongs: ongs,
   });
 });

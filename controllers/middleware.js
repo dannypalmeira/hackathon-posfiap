@@ -21,9 +21,9 @@ export async function verificaLogado(req, res, next) {
       if (err) {
         return res.status(401).json({err: "Não autorizado"});
       }
+      console.log("deoced", decoded);
       const user = await usuario.findById(decoded.id);
-
-      if (!user || !user.id) {
+      if (!user || !user._id) {
         return res.status(401).json({err: "Não autorizado"});
       }
       req.userId = user.id;
