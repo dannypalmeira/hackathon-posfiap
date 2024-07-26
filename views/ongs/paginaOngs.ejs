@@ -1,7 +1,7 @@
 <div class="container-fluid container-fluid-custom pb-5 mb-5">
   <div class="row mb-4">
     <div class="col">
-      <% if (!user && isAdmin) { %>
+      <% if (user && isAdmin) { %>
       <h1 class="h3">Aqui estão as ONGS disponíveis.</h1>   
       <div class="text-end" id="cadastraOng">
         <a href="/ongs/cadastrarOng" class="btn btn-primary">+ Cadastrar uma ONG</a>

@@ -26,7 +26,7 @@ export async function verificaLogado(req, res, next) {
         return res.status(401).json({err: "Não autorizado"});
       }
       req.userId = user.id;
-      req.isAdmin = user.tipo === "Adm";
+      req.user = user;
       return next();
     });
   } catch (err) {

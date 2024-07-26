@@ -10,61 +10,6 @@
         <h1 class="fw-bold mb-0 fs-2">Alterar Perfil</h1>
       </div>
 
-      <% if (user && user.isAdmin) { %>
-      <div class="modal-body p-5 pt-0" id="divForm">
-        <form id="form" onsubmit="enviaForm(event)">
-          <div class="form-floating mb-3">
-            <input
-              type="text"
-              class="form-control rounded-3"
-              id="user-name"
-              name="nome"
-              required
-              placeholder=""
-            />
-            <label id="lblEmail">Nome</label>
-          </div>
-          <div class="form-floating mb-3">
-            <input
-              type="text"
-              class="form-control rounded-3"
-              id="user-type"
-              name="tipo"
-              required
-              placeholder=""
-            />
-            <label id="lblSenha">Tipo</label>
-          </div>
-          <div class="form-floating mb-3">
-            <input
-              type="email"
-              class="form-control rounded-3"
-              id="user-email"
-              name="email"
-              required
-              placeholder=""
-            />
-            <label id="lblSenha">E-mail</label>
-          </div>
-
-          <div class="divErro" role="alert"></div>
-
-          <div
-            style="
-              display: flex;
-              flex-direction: row;
-              justify-content: space-around;
-              margin-top: 2em;
-            "
-          >
-            <button class="btn btn-outline-dark btn-md" type="submit">
-              Atualizar
-            </button>
-            <a href="/ongs" class="btn btn-outline-dark btn-md">Cancelar</a>
-          </div>
-        </form>
-      </div>
-      <% } else { %>
       <div class="modal-body p-5 pt-0" id="divForm">
         <form id="form" onsubmit="enviaForm(event)">
           <div class="form-floating mb-3">
@@ -107,7 +52,6 @@
           </div>
         </form>
       </div>
-      <% } %>
     </div>
   </div>
 </div>
@@ -121,15 +65,13 @@
   }
 
   const nome = sessionStorage.getItem("nome") || "Não disponível";
-  const tipo = sessionStorage.getItem("tipo") || "Não disponível";
   const email = sessionStorage.getItem("email") || "Não disponível";
   const userId = sessionStorage.getItem("id") || "Não disponível";
 
   function carregarDadosUsuario() {
-    console.log(nome, tipo, email, userId);
+    //console.log(nome, email, userId);
 
     document.getElementById("user-name").value = nome;
-    document.getElementById("user-type") && (document.getElementById("user-type").value = tipo);
     document.getElementById("user-email").value = email;
   }
 
@@ -139,7 +81,8 @@
   });
 
   async function enviaForm(event) {
-    event.preventDefault();
-    atualizaUsuario(event, userId);
-  }
+  event.preventDefault();
+  const userId = sessionStorage.getItem("id");
+  atualizaUsuario(event, userId);
+}
 </script>
