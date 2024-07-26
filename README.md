@@ -31,22 +31,22 @@
 <h1>Instalação</h1>
 
 <h3>instalação do projeto</h3>
-```
+```javascript
 git clone https://github.com/dannypalmeira/hackathon-posfiap.git
 ```
 
 <h3>Navege até a raiz do projeto</h3>
-```
+```javascript
 cd hackathon-posfiap
 ```
 
 <h3>Instale as dependencias</h3>
-```
+```javascript
 npm install
 ```
 
 <h3>Adicione o arquivo .env</h3>
-```
+```javascript
 DB_CONNECTION_STRING = 
 TOKEN=
 HOST_EMAIL=
@@ -55,7 +55,7 @@ SENHA=
 ```
 
 <h1>Uso</h1>
-```
+```javascript
 npm run servidor
 ```
 
