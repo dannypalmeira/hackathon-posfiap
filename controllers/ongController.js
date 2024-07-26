@@ -15,11 +15,11 @@ class ongController {
     const novaOng = new ong(req.body);
     try {
       await novaOng.save();
-      res.status(201).json({message: "Criado com sucesso", ong: novaOng});
+      res.status(201).json({ message: "Criado com sucesso", ong: novaOng });
     } catch (erro) {
       res
         .status(500)
-        .json({message: `${erro.message} - falha ao cadastrar ong`});
+        .json({ message: `${erro.message} - falha ao cadastrar ong` });
     }
   }
 
@@ -28,42 +28,42 @@ class ongController {
     let page = req.query.page || 1;
 
     const locals = {
-        title: "Lista de ONGs",
-        description: "Veja a lista das ONGs disponíveis",
+      title: "Lista de ONGs",
+      description: "Veja a lista das ONGs disponíveis",
     };
 
     try {
-        const listaongs = await ong.aggregate([
-            { $sort: { updatedAt: -1 } },
-            {
-                $project: {
-                    nome_org: { $substr: [ "$nome_org", 0, 30 ] },
-                    descricao: { $substr: [ "$descricao", 0, 300 ] },
-                    logo: { $substr: [ "$logo", 0, 2000 ] },
-                    area: { $substr: [ "$area", 0, 100 ] },
-                    contat: { $substr: [ "$contato", 0, 3 ] },
-                },
-            }
-        ])
+      const listaongs = await ong.aggregate([
+        { $sort: { updatedAt: -1 } },
+        {
+          $project: {
+            nome_org: { $substr: ["$nome_org", 0, 30] },
+            descricao: { $substr: ["$descricao", 0, 300] },
+            logo: { $substr: ["$logo", 0, 2000] },
+            area: { $substr: ["$area", 0, 100] },
+            contato: { $substr: ["$contato", 0, 9] },
+          },
+        }
+      ])
         .skip(perPage * page - perPage)
         .limit(perPage)
         .exec();
 
-        const count = await ong.countDocuments();
+      const count = await ong.countDocuments();
 
-        res.render("ongs/paginaOngs", {
-            locals,
-            ongs: listaongs,
-            layout: "../views/layout/main",
-            current: page,
-            pages: Math.ceil(count / perPage)
-        });
-        
+      res.render("ongs/paginaOngs", {
+        locals,
+        ongs: listaongs,
+        layout: "../views/layout/main",
+        current: page,
+        pages: Math.ceil(count / perPage)
+      });
+
     } catch (error) {
-        console.log(error);
-        res.status(500).send("Erro interno do servidor.");
+      console.log(error);
+      res.status(500).send("Erro interno do servidor.");
     }
-};
+  };
 
   static async listaOngPorId(req, res) {
     try {
@@ -87,7 +87,7 @@ class ongController {
   static async listaOngPorNome(req, res) {
     try {
       const nome = decodeURIComponent(req.params.nome);
-      const ongEncontrado = await ong.findOne({nome_org: nome});
+      const ongEncontrado = await ong.findOne({ nome_org: nome });
       //console.log(ongEncontrado);
       if (ongEncontrado) {
         res.render("ongs/detalhesOng", {
@@ -108,22 +108,22 @@ class ongController {
     try {
       const id = req.params.id;
       await ong.findByIdAndUpdate(id, req.body);
-      res.status(200).json({message: "ong Atualziado"});
+      res.status(200).json({ message: "ong Atualziado" });
     } catch (erro) {
       res
         .status(500)
-        .json({message: `${erro.message} - Falha ao atualizar ong`});
+        .json({ message: `${erro.message} - Falha ao atualizar ong` });
     }
   }
 
   static async excluiOng(req, res) {
     try {
-      await ong.deleteOne({_id: req.params.id});
-      res.status(200).json({message: "ong excluido"});
+      await ong.deleteOne({ _id: req.params.id });
+      res.status(200).json({ message: "ong excluido" });
     } catch (erro) {
       res
         .status(500)
-        .json({message: `${erro.message} - Falha ao excluir o ong`});
+        .json({ message: `${erro.message} - Falha ao excluir o ong` });
     }
   }
 
@@ -148,8 +148,8 @@ class ongController {
 
       const searchResults = await ong.find({
         $or: [
-          {nome_org: {$regex: new RegExp(searchNoSpecialChars, "i")}},
-          {descricao: {$regex: new RegExp(searchNoSpecialChars, "i")}},
+          { nome_org: { $regex: new RegExp(searchNoSpecialChars, "i") } },
+          { descricao: { $regex: new RegExp(searchNoSpecialChars, "i") } },
         ],
       });
 

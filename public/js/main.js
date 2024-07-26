@@ -304,3 +304,49 @@ async function alteraSenha(e) {
     }, 2500);
   } catch (ex) {}
 }
+
+async function atualizaUsuario(event, userId) {
+  event.preventDefault();
+  const form = document.getElementById("form");
+  const formData = new FormData(form);
+  try {
+    const response = await fetch(`/usuarios/${userId}`, {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/x-www-form-urlencoded",
+      },
+      body: new URLSearchParams(formData).toString(),
+    });
+    const data = await response.json();
+    if (data.err) {
+      const divErro = document.querySelector(".divErro");
+      divErro.innerHTML = data.err;
+      divErro.style.display = "flex";
+      setTimeout(() => {
+        divErro.innerHTML = "";
+        divErro.style.display = "none";
+      }, 2000);
+      return;
+    } else {
+      const divErro = document.querySelector(".divErro");
+      divErro.innerHTML = "Usuário atualizado!";
+      divErro.style.background = "green";
+      divErro.style.display = "flex";
+
+      setTimeout(() => {
+        divErro.innerHTML = "";
+        divErro.style.display = "none";
+        window.location.href = "/ongs"; // Redireciona para a página de ongs
+      }, 2000);
+    }
+  } catch (error) {
+    const divErro = document.querySelector(".divErro");
+    divErro.innerHTML = "Erro ao atualizar usuário";
+    divErro.style.display = "flex";
+    setTimeout(() => {
+      divErro.innerHTML = "";
+      divErro.style.display = "none";
+    }, 2000);
+  }
+}
+

@@ -9,7 +9,7 @@
       </nav>
       <div class="col d-flex justify-content-between align-items-center">
         <h1 class="h3"><%= ong.nome_org %></h1>
-        <% if (!user && !isAdmin) { %>
+        <% if (!user && isAdmin) { %>
         <button
         type="button"
         class="btn btn-danger me-2"
@@ -22,14 +22,30 @@
     </div>
   </div>
 
+  <% if (!user && isAdmin) { %>
+  <form action="/ongs/nome/<%= ong._id %>?_method=PUT" method="POST" class="position-relative">
+    <div class="container-fluid">
+  <div class="row">
+    <div class="col-md-4"><img class="card border-primary img-form" src="<%= ong.logo %>"></div>    
+    <div class="form-group col-md-8 mb-4" style="left:1px; top:1px; right: 1px;">
+      <span>Nome ONG</span><input type="text" class="form-control fw-bold border-0 fs-4" id="nome_org" name="nome" value="<%= ong.nome_org %>">
+      <span>Área de Atuação</span><input type="text" class="form-control fw-bold border-0 fs-4" id="area" name="area" value="<%= ong.area %>">
+      <span>Contato</span><input type="number" class="form-control fw-bold border-0 fs-4" id="contato" name="contato" value="<%= ong.contato %>">
+      <span>Logo</span><input type="text" class="form-control fw-bold border-0 fs-4" id="logo" name="logo" value="<%= ong.logo %>">      
+      <span>Descrição</span><textarea class="form-control pt-5 fs-4 mb-4" id="descricao" name="descricao" placeholder="Descrição..." rows="12"><%= ong.descricao %></textarea>
+      <button type="submit" class="btn btn-primary btn-lg">Atualizar</button>
+    </div>  
+</div>
+</div>
+</form>
+<% } %>
+
   <div class="card border-primary card-body" style="min-height: 210px">
     <div class="container-fluid">
       <div class="row">
         <div class="col-md-4 card-center"><img src="<%= ong.logo %>" /></div>
         <div class="col-md-8 card-center">
           <h5 class="card-title"><%= ong.nome_org %></h5>
-          <p class="card-text"><%= ong.descricao %></p>
-          <p class="card-text fw-bold"><%= ong.local %></p>
           <p class="card-text"><%= ong.area %></p>
           <p class="card-text"><strong>Contato:</strong> <%= ong.contato %></p>
         </div>
