@@ -6,7 +6,7 @@ export async function verificaLogado(req, res, next) {
   try {
     const {authorization} = req.headers;
     if (!authorization) {
-      return res.sendStatus(401);
+      return res.redirect("/login");
     }
     const parts = authorization.split(" ");
     const [schema, token] = parts;
@@ -21,7 +21,6 @@ export async function verificaLogado(req, res, next) {
       if (err) {
         return res.status(401).json({err: "Não autorizado"});
       }
-      console.log("deoced", decoded);
       const user = await usuario.findById(decoded.id);
       if (!user || !user._id) {
         return res.status(401).json({err: "Não autorizado"});

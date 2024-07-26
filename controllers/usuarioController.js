@@ -20,6 +20,7 @@ class usuarioController {
     try {
       const id = req.params.id;
       const usuarioEncontrado = await usuario.findById(id);
+      console.log(usuarioEncontrado);
 
       if (!usuarioEncontrado) {
         return res.status(404).json({message: "Usuário não encontrado"});
