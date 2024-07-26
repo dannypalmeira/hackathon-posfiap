@@ -48,3 +48,6 @@ SENHA=
 
 <h1>Uso</h1>
 npm run servidor
+
+<h1>Contato</h1>
+João Vitor Barbosa - joao-vitor1903@live.com
