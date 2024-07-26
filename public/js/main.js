@@ -44,6 +44,7 @@ async function EfetuaLogin(e) {
     sessionStorage.setItem("token", data.token);
     sessionStorage.setItem("id", data.id);
     sessionStorage.setItem("tipo", data.tipo);
+    sessionStorage.setItem("email", data.email);
     irParaPagina("/ongs");
   } catch (ex) {}
 }
