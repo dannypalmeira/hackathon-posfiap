@@ -40,7 +40,12 @@ svg {
   max-width: 100%;
 }
 
-#user button{
+#testModal .modal-content{
+  border: 0;
+}
+
+
+#userPerfil button{
   background-color: transparent;
   background-image: none;
   border: 0;

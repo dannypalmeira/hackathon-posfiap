@@ -15,64 +15,84 @@
     <input type="search" name="searchTerm" class="form-control border-primary" placeholder="Buscar..."
       aria-label="Search">
   </form>
-
+  
     <div class="relative inline-block text-left" id="divBtns">
+      <% if (!user) { %>
       
-      <div><button type="button" class="btn btn-primary user-bt" data-bs-toggle="modal" data-bs-target="#user"> US </button></div>
+      <div><button type="button" class="btn btn-primary user-bt" data-bs-toggle="modal" data-bs-target="#testModal"> U </button></div>
 
-      <!-- Modal -->
-      <div class="modal" id="user" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
-          <div class="absolute right-25 mt-3 w-56 origin-top-right divide-gray-100 rounded-md bg-white shadow ring-1 ring-black/5 focus:outline-none" aria-labelledby="headlessui-menu-button-:r2:" id="headlessui-menu-items-:r1a:" role="menu" tabindex="0" data-headlessui-state="open" data-open="" style="--button-width: 48px;">
-              
-              <div class="p-4" role="none"><button
-                  class="text-gray-700 group flex w-full items-center rounded-md px-2 py-2 text-base"
-                  id="headlessui-menu-item-:r11:" role="menuitem" tabindex="-1" data-headlessui-state=""><svg
-                    stroke="black" fill="black" stroke-width="0" viewBox="0 0 448 512" class="mr-2"
-                    aria-hidden="true" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg">
-                    <path
-                      d="M224 256c70.7 0 128-57.3 128-128S294.7 0 224 0 96 57.3 96 128s57.3 128 128 128zm89.6 32h-16.7c-22.2 10.2-46.9 16-72.9 16s-50.6-5.8-72.9-16h-16.7C60.2 288 0 348.2 0 422.4V464c0 26.5 21.5 48 48 48h352c26.5 0 48-21.5 48-48v-41.6c0-74.2-60.2-134.4-134.4-134.4z">
-                    </path>
-                  </svg>Profile</button><button
-                  class="tetx-gray-700 group flex w-full items-center rounded-md px-2 py-2 text-base"
-                  id="headlessui-menu-item-:r12:" role="menuitem" tabindex="-1" data-headlessui-state=""><svg
-                    stroke="black" fill="black" stroke-width="0" viewBox="0 0 640 512" class="mr-2"
-                    aria-hidden="true" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg">
-                    <path
-                      d="M224 256A128 128 0 1 0 96 128a128 128 0 0 0 128 128zm96 64a63.08 63.08 0 0 1 8.1-30.5c-4.8-.5-9.5-1.5-14.5-1.5h-16.7a174.08 174.08 0 0 1-145.8 0h-16.7A134.43 134.43 0 0 0 0 422.4V464a48 48 0 0 0 48 48h280.9a63.54 63.54 0 0 1-8.9-32zm288-32h-32v-80a80 80 0 0 0-160 0v80h-32a32 32 0 0 0-32 32v160a32 32 0 0 0 32 32h224a32 32 0 0 0 32-32V320a32 32 0 0 0-32-32zM496 432a32 32 0 1 1 32-32 32 32 0 0 1-32 32zm32-144h-64v-80a32 32 0 0 1 64 0z">
-                    </path>
-                  </svg>Change Password</button><button
-                  class="text-red-600 group flex w-full items-center rounded-md px-2 py-2 text-base"
-                  id="headlessui-menu-item-:r13:" role="menuitem" tabindex="-1" data-headlessui-state=""><svg
-                    stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 512 512" class="mr-2"
-                    aria-hidden="true" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg">
-                    <path fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="32"
-                      d="M304 336v40a40 40 0 0 1-40 40H104a40 40 0 0 1-40-40V136a40 40 0 0 1 40-40h152c22.09 0 48 17.91 48 40v40m64 160 80-80-80-80m-192 80h256">
-                    </path>
-                  </svg>Logout</button>
-                </div>
-           
+      <div class="modal fade" id="testModal" tabindex="-1" aria-labelledby="testModalLabel" aria-hidden="true">
+        <div class="modal-dialog" id="userPerfil">
+          <div class="modal-content">
+            <div class="modal-body absolute right-25 mt-3 w-56 origin-top-right divide-gray-100 rounded-md bg-white shadow ring-1 ring-black/5 focus:outline-none">
+              <button id="testButton1" class="text-gray-700 group flex w-full items-center rounded-md px-2 py-2 text-base"
+              id="headlessui-menu-item-:r11:" role="menuitem" tabindex="-1" data-headlessui-state=""><svg
+                stroke="black" fill="black" stroke-width="0" viewBox="0 0 448 512" class="mr-2"
+                aria-hidden="true" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg">
+                <path
+                  d="M224 256c70.7 0 128-57.3 128-128S294.7 0 224 0 96 57.3 96 128s57.3 128 128 128zm89.6 32h-16.7c-22.2 10.2-46.9 16-72.9 16s-50.6-5.8-72.9-16h-16.7C60.2 288 0 348.2 0 422.4V464c0 26.5 21.5 48 48 48h352c26.5 0 48-21.5 48-48v-41.6c0-74.2-60.2-134.4-134.4-134.4z">
+                </path>
+              </svg>Perfil</button>
+              <button id="testButton2" class="tetx-gray-700 group flex w-full items-center rounded-md px-2 py-2 text-base"
+              id="headlessui-menu-item-:r12:" role="menuitem" tabindex="-1" data-headlessui-state=""><svg
+                stroke="black" fill="black" stroke-width="0" viewBox="0 0 640 512" class="mr-2"
+                aria-hidden="true" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg">
+                <path
+                  d="M224 256A128 128 0 1 0 96 128a128 128 0 0 0 128 128zm96 64a63.08 63.08 0 0 1 8.1-30.5c-4.8-.5-9.5-1.5-14.5-1.5h-16.7a174.08 174.08 0 0 1-145.8 0h-16.7A134.43 134.43 0 0 0 0 422.4V464a48 48 0 0 0 48 48h280.9a63.54 63.54 0 0 1-8.9-32zm288-32h-32v-80a80 80 0 0 0-160 0v80h-32a32 32 0 0 0-32 32v160a32 32 0 0 0 32 32h224a32 32 0 0 0 32-32V320a32 32 0 0 0-32-32zM496 432a32 32 0 1 1 32-32 32 32 0 0 1-32 32zm32-144h-64v-80a32 32 0 0 1 64 0z">
+                </path>
+              </svg>Alterar Senha</button>
+              <button id="testButton3" class="text-red-600 group flex w-full items-center rounded-md px-2 py-2 text-base"
+              id="headlessui-menu-item-:r13:" role="menuitem" tabindex="-1" data-headlessui-state=""><svg
+                stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 512 512" class="mr-2"
+                aria-hidden="true" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg">
+                <path fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="32"
+                  d="M304 336v40a40 40 0 0 1-40 40H104a40 40 0 0 1-40-40V136a40 40 0 0 1 40-40h152c22.09 0 48 17.91 48 40v40m64 160 80-80-80-80m-192 80h256">
+                </path>
+              </svg>Sair</button>
+            </div>
+          </div>
+        </div>
+      </div>          
      
           </div>
         </div>
       </div>
 
-
-
-
-
-
-      <% if (locals.currentUrl !=='/login' && locals.currentUrl !=='/cadastro' ) { %>
-        <% } else { %>
-
-
-
-
-
-
-
-          <a href="/login" type="button" class="btn btn-warning">Sair</a>
           <% } %>
     </div>
   </header>
 </div>
+
+
+
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    const userId = sessionStorage.getItem('id'); 
+    if (userId) {
+        document.getElementById('testButton1').addEventListener('click', function () {
+            console.log('Test Button 1 clicked');
+            window.location.href = `/perfil`;
+        });
+    } else {
+        console.error('User ID not found.');
+    }
+
+    document.getElementById('testButton2').addEventListener('click', function () {
+      console.log('Test Button 2 clicked');
+      window.location.href = '/alteraSenha';
+    });
+
+    document.getElementById('testButton3').addEventListener('click', function () {
+      console.log('Test Button 2 clicked');
+      window.location.href = '/login';
+    });
+
+    const nome = sessionStorage.getItem('nome') || 'Usuário';
+
+   const inicial = nome.charAt(0).toUpperCase();
+  const userButton = document.querySelector('.user-bt');
+  if (userButton) {
+    userButton.textContent = inicial;
+  }
+  });
+</script>

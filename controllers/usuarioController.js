@@ -20,13 +20,19 @@ class usuarioController {
     try {
       const id = req.params.id;
       const usuarioEncontrado = await usuario.findById(id);
+      console.log(usuarioEncontrado);
+  
+      if (!usuarioEncontrado) {
+        return res.status(404).json({ message: "Usuário não encontrado" });
+      }
+  
       res.status(200).json(usuarioEncontrado);
-    } catch (erro) {
-      res
-        .status(500)
-        .json({message: `${erro.message} - falha ao consultar usuario por ID`});
+    } 
+    catch (erro) {
+      res.status(500).json({ message: `${erro.message} - falha ao consultar usuário por ID` });
     }
   }
+  
 
   static async login(req, res) {
     const {email, senha} = req.body;
@@ -50,6 +56,7 @@ class usuarioController {
         id: user._id.toString(),
         nome: user.nome,
         tipo: user.tipo,
+        email: user.email,
       });
     } catch (ex) {
       return res.status(500).json({err: "Não foi possível efetuar o login"});
@@ -93,12 +100,33 @@ class usuarioController {
   static async atualizaUsuario(req, res) {
     try {
       const id = req.params.id;
-      await usuario.findByIdAndUpdate(id, req.body);
-      res.status(200).json({message: "usuario Atualziado"});
+      const usuarioEncontrado = await usuario.findById(id);
+      if (!usuarioEncontrado) {
+        return res.status(404).json({ message: "Usuário não encontrado" });
+      }
+      const usuarioAtualizado = await usuario.findByIdAndUpdate(id, req.body, { new: true });
+      res.status(200).json(usuarioAtualizado);
     } catch (erro) {
-      res
-        .status(500)
-        .json({message: `${erro.message} - Falha ao atualizar usuario`});
+      res.status(500).json({ message: `${erro.message} - Falha ao atualizar usuario` });
+    }
+  }
+
+  static async renderizaPaginaEdicaoUsuario(req, res) {
+    try {
+      const id = req.params.id;
+      const usuarioEncontrado = await usuario.findById(id);
+
+      if (usuarioEncontrado) {
+        res.render("usuarios/perfil", {
+          layout: "../views/layout/main",
+          title: "Editar Usuário",
+          usuario: usuarioEncontrado,
+        });
+      } else {
+        res.status(404).send("Usuário não encontrado.");
+      }
+    } catch (erro) {
+      res.status(500).send("Erro ao carregar a página de edição do usuário: " + erro.message);
     }
   }
 
@@ -106,7 +134,7 @@ class usuarioController {
     try {
       const id = req.params.id;
       await usuario.findByIdAndDelete(id);
-      res.status(200).json({message: "usuario excluido"});
+      res.status(204).json({message: "usuario excluido"});
     } catch (erro) {
       res
         .status(500)

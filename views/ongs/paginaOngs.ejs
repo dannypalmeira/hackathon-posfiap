@@ -1,13 +1,17 @@
 <div class="container-fluid container-fluid-custom pb-5 mb-5">
   <div class="row mb-4">
     <div class="col">
-      <h1 class="h3">Aqui estão as ONGS disponíveis.</h1>
+      <% if (!user && !isAdmin) { %>
+      <h1 class="h3">Aqui estão as ONGS disponíveis.</h1>   
       <div class="text-end" id="cadastraOng">
-        <a href="/ongs/cadastrarOng" class="btn btn-primary"
-          >+ Cadastrar uma ONG</a
-        >
+        <a href="/ongs/cadastrarOng" class="btn btn-primary">+ Cadastrar uma ONG</a>
       </div>
     </div>
+    <% } else { %>
+      <div class="col">
+        <h1 class="h3">Aqui estão as ONGS disponíveis.<br>Faça o login para escolher a sua!</h1>
+      </div>
+    <% } %>
   </div>
 
   <div class="row">
@@ -78,12 +82,4 @@
 </div>
 <script>
   verificaLogado();
-  function verificaAdm() {
-    const div = document.getElementById("cadastraOng");
-    const tipo = sessionStorage.getItem("tipo");
-    if (tipo !== "Adm") {
-      div.style.display = "none";
-    }
-  }
-  verificaAdm();
 </script>

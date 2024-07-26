@@ -24,7 +24,7 @@
 
       <div style="display: flex;flex-direction: row; justify-content: space-around; margin-top: 2em;">
       <button class="btn btn-outline-dark btn-md" type="submit">Altera senha</button>
-       <a href="/cadastro" class="btn btn-outline-dark btn-md">Cancelar</a>
+       <a href="/ongs" class="btn btn-outline-dark btn-md">Cancelar</a>
       </div>     
     </form>
   </div>
@@ -37,7 +37,6 @@ function verificaLogado(){
   const pathParts = window.location.pathname.split('/');
   const token =  pathParts[pathParts.length - 1];
   const id= sessionStorage.getItem("id")
-  console.log("oiiii",id,token)
   if((!id && !token) || token==="alteraSenha"){
     irParaPagina("/login")
   }

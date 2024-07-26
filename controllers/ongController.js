@@ -24,7 +24,7 @@ class ongController {
   }
 
   static async listarOngs(req, res) {
-    let perPage = 2;
+    let perPage = 4;
     let page = req.query.page || 1;
 
     const locals = {
