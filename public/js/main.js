@@ -10,6 +10,7 @@ function verificaLogado() {
   if (!id || !tipo || !nome) {
     sessionStorage.clear();
     irParaPagina("/login");
+    return false;
   }
 
   if (tipo !== "Adm") {
