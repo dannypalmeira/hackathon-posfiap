@@ -27,7 +27,6 @@ export async function verificaLogado(req, res, next) {
       }
       req.userId = user.id;
       req.user = user;
-      req.isAdmin = user.tipo === "Adm";
       return next();
     });
   } catch (err) {
