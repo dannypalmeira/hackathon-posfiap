@@ -305,48 +305,66 @@ async function alteraSenha(e) {
   } catch (ex) {}
 }
 
-async function atualizaUsuario(event, userId) {
-  event.preventDefault();
-  const form = document.getElementById("form");
-  const formData = new FormData(form);
-  try {
-    const response = await fetch(`/usuarios/${userId}`, {
-      method: "PUT",
-      headers: {
-        "Content-Type": "application/x-www-form-urlencoded",
-      },
-      body: new URLSearchParams(formData).toString(),
-    });
-    const data = await response.json();
-    if (data.err) {
-      const divErro = document.querySelector(".divErro");
-      divErro.innerHTML = data.err;
-      divErro.style.display = "flex";
-      setTimeout(() => {
-        divErro.innerHTML = "";
-        divErro.style.display = "none";
-      }, 2000);
-      return;
-    } else {
-      const divErro = document.querySelector(".divErro");
-      divErro.innerHTML = "Usuário atualizado!";
-      divErro.style.background = "green";
-      divErro.style.display = "flex";
+async function atualizaUsuario(event, id) {
+  event.preventDefault(); 
 
+  const form = event.target;
+  const formData = new FormData(form);
+
+  const data = {
+    nome: formData.get('nome'),
+    tipo: formData.get('tipo'),
+    email: formData.get('email')
+  };
+
+  const divErro = document.querySelector('.divErro');
+
+  try {
+    const response = await fetch(`/usuarios/${id}`, {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(data)
+    });
+
+     console.log('Response:', response);
+
+    const responseData = await response.json();
+
+    if (!response.ok) {
+      throw new Error(responseData.err || 'Erro ao atualizar usuário');
+    }
+
+    sessionStorage.setItem('nome', responseData.nome);
+    sessionStorage.setItem('tipo', responseData.tipo);
+    sessionStorage.setItem('email', responseData.email);
+
+    if (responseData.err) {
+      divErro.innerHTML = responseData.err;
+      divErro.style.background = 'red';
+      divErro.style.display = 'flex';
       setTimeout(() => {
-        divErro.innerHTML = "";
-        divErro.style.display = "none";
-        window.location.href = "/ongs"; // Redireciona para a página de ongs
-      }, 2000);
+        divErro.innerHTML = '';
+        divErro.style.display = 'none';
+      }, 2300);
+    } else {
+      divErro.innerHTML = 'Dados atualizados com sucesso!';
+      divErro.style.background = 'green';
+      divErro.style.display = 'flex';
+      setTimeout(() => {
+        divErro.innerHTML = '';
+        divErro.style.display = 'none';
+        window.location.href = '/ongs';
+      }, 2500);
     }
   } catch (error) {
-    const divErro = document.querySelector(".divErro");
-    divErro.innerHTML = "Erro ao atualizar usuário";
-    divErro.style.display = "flex";
+    divErro.innerHTML = 'Erro ao atualizar usuário. Tente novamente.';
+    divErro.style.background = 'red';
+    divErro.style.display = 'flex';
     setTimeout(() => {
-      divErro.innerHTML = "";
-      divErro.style.display = "none";
-    }, 2000);
+      divErro.innerHTML = '';
+      divErro.style.display = 'none';
+    }, 2500);
   }
 }
-
