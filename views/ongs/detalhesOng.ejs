@@ -9,7 +9,7 @@
       </nav>
       <div class="col d-flex justify-content-between align-items-center">
         <h1 class="h3"><%= ong.nome_org %></h1>
-        <% if (!user && isAdmin) { %>
+        <% if (!user && !isAdmin) { %>
         <button
         type="button"
         class="btn btn-danger me-2"
