@@ -368,3 +368,80 @@ async function atualizaUsuario(event, id) {
     }, 2500);
   }
 }
+async function alterarUsuario() {
+  const userId = sessionStorage.getItem("userId");
+  if (userId) {
+    try {
+      const response = await fetch(`/usuarios/${userId}`, {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ tipo: tipoAtual }),
+      });
+      if (!response.ok) {
+        throw new Error('Erro ao atualizar usuário');
+      }
+      alert('Usuário atualizado com sucesso!');
+      document.getElementById("resultadoBusca").style.display = 'none';
+    } catch (error) {
+      alert('Erro ao atualizar usuário: ' + error.message);
+    }
+  }
+}
+function removeUsuario() {
+  const userId = sessionStorage.getItem("userId");
+  if (userId) {
+    fetch(`/usuarios/${userId}`, {
+      method: 'DELETE',
+    })
+    .then(response => {
+      if (response.status === 204) {
+        alert('Usuário removido com sucesso!');
+        document.getElementById("resultadoBusca").style.display = 'none';
+      } else {
+        return response.json().then(data => {
+          throw new Error(data.message || 'Erro ao remover usuário');
+        });
+      }
+    })
+    .catch(error => alert('Erro ao remover usuário: ' + error.message));
+  }
+}
+
+function alterarTipo(direcao) {
+  if (direcao === 'up') {
+    tipoAtual = tipoAtual === 'Operador' ? 'Admin' : 'Admin'; // 
+  } else if (direcao === 'down') {
+    tipoAtual = tipoAtual === 'Admin' ? 'Operador' : 'Operador'; 
+  }
+  document.getElementById("tipo-text").textContent = tipoAtual;
+}
+
+let tipoAtual = 'Operador'; // padrão
+
+async function buscaUsuario(event) {
+  event.preventDefault();
+  const userId = document.getElementById("user-id").value;
+
+
+  document.querySelector('.divErro').textContent = '';
+  document.getElementById("resultado-nome").textContent = '';
+  document.getElementById("tipo-text").textContent = 'Operador'; 
+  
+  try {
+    const response = await fetch(`/usuarios/${userId}`);
+    if (!response.ok) {
+      throw new Error('Erro ao buscar usuário');
+    }
+    const usuario = await response.json();
+    document.getElementById("resultado-nome").textContent = usuario.nome || 'Não disponível';
+    tipoAtual = usuario.tipo || 'Operador';
+    document.getElementById("tipo-text").textContent = tipoAtual;
+    document.getElementById("resultadoBusca").style.display = 'block';
+    sessionStorage.setItem("userId", userId);
+  } catch (erro) {
+    document.querySelector('.divErro').textContent = erro.message;
+    document.getElementById("resultadoBusca").style.display = 'none'; 
+  }
+}

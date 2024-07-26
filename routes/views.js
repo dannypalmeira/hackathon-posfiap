@@ -25,6 +25,13 @@ router.get("/login", (req, res) => {
   res.render("login", locals);
 });
 
+router.get("/listaUsuario", (req, res) => {
+  res.render("listaUsuario", {
+    title: "HACKA | GRUPO O",
+    description: "Página de perfil do usuário",
+  });
+});
+
 // se tiver algum erro avisa apenas copiei a de cima e troquei o locals
 router.get("/perfil", (req, res) => {
   res.render("perfil", {
