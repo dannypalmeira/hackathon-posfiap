@@ -14,7 +14,10 @@ routes.post("/alteraSenha", verificaLogado, usuarioController.alteraSenha);
 routes.put("/usuarios/:id", usuarioController.atualizaUsuario);
 routes.delete("/usuarios/:id", usuarioController.excluiUsuario);
 
-routes.get("/usuarios/editar/:id", usuarioController.renderizaPaginaEdicaoUsuario);
+routes.get(
+  "/usuarios/editar/:id",
+  usuarioController.renderizaPaginaEdicaoUsuario
+);
 
 // usar o nome da funcao criada e exportar
 export default routes;
