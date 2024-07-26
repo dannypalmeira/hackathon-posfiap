@@ -21,18 +21,18 @@ class usuarioController {
       const id = req.params.id;
       const usuarioEncontrado = await usuario.findById(id);
       console.log(usuarioEncontrado);
-  
+
       if (!usuarioEncontrado) {
-        return res.status(404).json({ message: "Usuário não encontrado" });
+        return res.status(404).json({message: "Usuário não encontrado"});
       }
-  
+
       res.status(200).json(usuarioEncontrado);
-    } 
-    catch (erro) {
-      res.status(500).json({ message: `${erro.message} - falha ao consultar usuário por ID` });
+    } catch (erro) {
+      res
+        .status(500)
+        .json({message: `${erro.message} - falha ao consultar usuário por ID`});
     }
   }
-  
 
   static async login(req, res) {
     const {email, senha} = req.body;
@@ -51,8 +51,17 @@ class usuarioController {
       if (!senhaValida) {
         return res.status(500).json({err: "Email ou senha invalido."});
       }
+      let id = {
+        nome: user.nome,
+        email: user.email,
+        logado: true,
+        tipo: user.tipo,
+        id: user._id.toString(),
+      };
 
+      const token = jwt.sign(id, process.env.TOKEN);
       return res.status(200).json({
+        token: token,
         id: user._id.toString(),
         nome: user.nome,
         tipo: user.tipo,
@@ -102,12 +111,16 @@ class usuarioController {
       const id = req.params.id;
       const usuarioEncontrado = await usuario.findById(id);
       if (!usuarioEncontrado) {
-        return res.status(404).json({ message: "Usuário não encontrado" });
+        return res.status(404).json({message: "Usuário não encontrado"});
       }
-      const usuarioAtualizado = await usuario.findByIdAndUpdate(id, req.body, { new: true });
+      const usuarioAtualizado = await usuario.findByIdAndUpdate(id, req.body, {
+        new: true,
+      });
       res.status(200).json(usuarioAtualizado);
     } catch (erro) {
-      res.status(500).json({ message: `${erro.message} - Falha ao atualizar usuario` });
+      res
+        .status(500)
+        .json({message: `${erro.message} - Falha ao atualizar usuario`});
     }
   }
 
@@ -126,7 +139,11 @@ class usuarioController {
         res.status(404).send("Usuário não encontrado.");
       }
     } catch (erro) {
-      res.status(500).send("Erro ao carregar a página de edição do usuário: " + erro.message);
+      res
+        .status(500)
+        .send(
+          "Erro ao carregar a página de edição do usuário: " + erro.message
+        );
     }
   }
 
