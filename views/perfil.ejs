@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/5.3.0/css/bootstrap.min.css">
+</head>
+
+<body>
+  <div class="modal modal-sheet position-static d-block p-4 py-md-5" tabindex="-1" role="dialog" id="profileModal">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content rounded-4 shadow">
+        <div class="modal-header p-5 pb-4 border-bottom-0">
+          <h1 class="fw-bold mb-0 fs-2">Perfil</h1>
+        </div>
+
+        <div class="modal-body p-5 pt-0" id="divProfile">
+          <div id="user-info">
+            <p><strong>Nome:</strong> <span id="user-name">Carregando...</span></p>
+            <p><strong>Tipo:</strong> <span id="user-type">Carregando...</span></p>
+            <p><strong>Email:</strong> <span id="user-email">Carregando...</span></p>
+          </div>
+          <div style="display: flex; flex-direction: row; justify-content: center; margin-top: 2em;">
+            <a href="/login" class="btn btn-outline-dark btn-md">Sair</a>
+          </div>
+        </div>
+      </div>  
+    </div>
+  </div>
+
+  <script>
+    function verificaLogado() {
+      const nome = sessionStorage.getItem('nome');
+      if (!nome) {
+        window.location.href = '/login';
+      }
+    }
+
+    function carregarDadosUsuario() {
+      const nome = sessionStorage.getItem('nome') || 'Não disponível';
+      const tipo = sessionStorage.getItem('tipo') || 'Não disponível';
+      const email = sessionStorage.getItem('email') || 'Não disponível';
+
+      document.getElementById('user-name').textContent = nome;
+      document.getElementById('user-type').textContent = tipo;
+      document.getElementById('user-email').textContent = email;
+    }
+
+    document.addEventListener('DOMContentLoaded', function() {
+      verificaLogado();
+      carregarDadosUsuario();
+    });
+  </script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+</body>
+
+</html>

@@ -49,10 +49,10 @@ async function EfetuaLogin(e) {
       }, 2000);
       return;
     }
-
     sessionStorage.setItem("nome", data.nome);
     sessionStorage.setItem("id", data.id);
     sessionStorage.setItem("tipo", data.tipo);
+    sessionStorage.setItem("email", data.email);
     irParaPagina("/ongs");
   } catch (ex) {}
 }

@@ -55,6 +55,7 @@ class usuarioController {
         id: user._id.toString(),
         nome: user.nome,
         tipo: user.tipo,
+        email: user.email,
       });
     } catch (ex) {
       return res.status(500).json({err: "Não foi possível efetuar o login"});
