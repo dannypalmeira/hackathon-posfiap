@@ -11,34 +11,78 @@
         <h1 class="h3"><%= ong.nome_org %></h1>
         <% if (!user && !isAdmin) { %>
         <button
-        type="button"
-        class="btn btn-danger me-2"
-        onclick="confirmDelete('<%= ong._id %>')"
-      >
+          type="button"
+          class="btn btn-danger me-2"
+          onclick="confirmDelete('<%= ong._id %>')"
+        >
           Excluir cadastro
         </button>
-          <% } %>
+        <% } %>
       </div>
     </div>
   </div>
 
   <% if (!user && !isAdmin) { %>
-  <form action="/ongs/nome/<%= ong._id %>?_method=PUT" method="POST" class="position-relative">
+  <form id="form" onsubmit="atualizaOng(event)" class="position-relative">
     <div class="container-fluid">
-  <div class="row">
-    <div class="col-md-4"><img class="card border-primary img-form" src="<%= ong.logo %>"></div>    
-    <div class="form-group col-md-8 mb-4" style="left:1px; top:1px; right: 1px;">
-      <span>Nome ONG</span><input type="text" class="form-control fw-bold border-0 fs-4" id="nome_org" name="nome" value="<%= ong.nome_org %>">
-      <span>Área de Atuação</span><input type="text" class="form-control fw-bold border-0 fs-4" id="area" name="area" value="<%= ong.area %>">
-      <span>Contato</span><input type="number" class="form-control fw-bold border-0 fs-4" id="contato" name="contato" value="<%= ong.contato %>">
-      <span>Logo</span><input type="text" class="form-control fw-bold border-0 fs-4" id="logo" name="logo" value="<%= ong.logo %>">      
-      <span>Descrição</span><textarea class="form-control pt-5 fs-4 mb-4" id="descricao" name="descricao" placeholder="Descrição..." rows="12"><%= ong.descricao %></textarea>
-      <button type="submit" class="btn btn-primary btn-lg">Atualizar</button>
-    </div>  
-</div>
-</div>
-</form>
-<% } else { %>
+      <div class="row">
+        <div class="col-md-4">
+          <img class="card border-primary img-form" src="<%= ong.logo %>" />
+        </div>
+        <div
+          class="form-group col-md-8 mb-4"
+          style="left: 1px; top: 1px; right: 1px"
+        >
+          <span>Nome ONG</span
+          ><input
+            type="text"
+            class="form-control fw-bold border-0 fs-4"
+            id="nome_org"
+            name="nome"
+            value="<%= ong.nome_org %>"
+          />
+          <span>Área de Atuação</span
+          ><input
+            type="text"
+            class="form-control fw-bold border-0 fs-4"
+            id="area"
+            name="area"
+            value="<%= ong.area %>"
+          />
+          <span>Contato</span
+          ><input
+            type="number"
+            class="form-control fw-bold border-0 fs-4"
+            id="contato"
+            name="contato"
+            value="<%= ong.contato %>"
+          />
+          <span>Logo</span
+          ><input
+            type="text"
+            class="form-control fw-bold border-0 fs-4"
+            id="logo"
+            name="logo"
+            value="<%= ong.logo %>"
+          />
+          <span>Descrição</span
+          ><textarea
+            class="form-control pt-5 fs-4 mb-4"
+            id="descricao"
+            name="descricao"
+            placeholder="Descrição..."
+            rows="12"
+          >
+<%= ong.descricao %></textarea
+          >
+          <button type="submit" class="btn btn-primary btn-lg">
+            Atualizar
+          </button>
+        </div>
+      </div>
+    </div>
+  </form>
+  <% } else { %>
 
   <div class="card border-primary card-body" style="min-height: 210px">
     <div class="container-fluid">
@@ -80,13 +124,53 @@
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
           Fechar
         </button>
-       
-        <button type="button" class="btn btn-danger" onclick="deleteOng()">Excluir cadastro</button>
+        <button type="button" class="btn btn-danger" onclick="deleteOng()">
+          Excluir cadastro
+        </button>
       </div>
     </div>
   </div>
 </div>
 
 <script>
+  function atualizaOng(event) {
+    event.preventDefault();
+
+    const id = "<%= ong._id %>";
+    const nome_org = document.getElementById("nome_org").value;
+    const area = document.getElementById("area").value;
+    const contato = document.getElementById("contato").value;
+    const logo = document.getElementById("logo").value;
+    const descricao = document.getElementById("descricao").value;
+
+    fetch(`/ongs/${id}`, {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ nome: nome_org, area, contato, logo, descricao }),
+    })
+      .then((response) => {
+        if (!response.ok) {
+          return response.json().then((err) => {
+            throw new Error(err.message || "Erro na resposta da requisição");
+          });
+        }
+        return response.json();
+      })
+      .then((data) => {
+        if (data.message === "ONG Atualizada") {
+          //alert('ONG atualizada com sucesso!');
+          window.location.href = "/ongs";
+        } else {
+          alert("Erro ao atualizar ONG: " + data.message);
+        }
+      })
+      .catch((error) => {
+        console.error("Erro:", error);
+        // alert('Erro ao atualizar ONG.');
+      });
+  }
+
   verificaLogado();
 </script>

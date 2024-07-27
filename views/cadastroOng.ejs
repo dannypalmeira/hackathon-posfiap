@@ -40,18 +40,6 @@
 </div>
 
 <script>
-    verificaLogado()
-    function verificaAdm(){
-        const tipo=sessionStorage.getItem("tipo")
-        if(tipo!=="Adm"){
-            irParaPagina("/ongs")
-        }
-    }
-
-
-    verificaAdm()
-
-
     function cadastrarOng(event) {
         event.preventDefault();
         
@@ -62,7 +50,7 @@
         const logo = document.getElementById('logo').value;
 
     
-        console.log('Dados do formulário:', { nome_org, descricao, contato, area, logo });
+        //console.log('Dados do formulário:', { nome_org, descricao, contato, area, logo });
         
         fetch('/ongs/cadastrarOng', {
             method: 'POST',
@@ -72,11 +60,11 @@
             body: JSON.stringify({ nome_org, descricao, contato, area, logo })
         })
         .then(response => {
-            console.log('Resposta da requisição:', response);
+            //console.log('Resposta da requisição:', response);
             return response.json();
         })
         .then(data => {
-            console.log('Dados retornados pelo servidor:', data);
+            //console.log('Dados retornados pelo servidor:', data);
             
             if (data.message === "Criado com sucesso") {
                 window.location.href = "/ongs"; 
