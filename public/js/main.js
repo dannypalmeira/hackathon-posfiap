@@ -411,9 +411,9 @@ function removeUsuario() {
 
 function alterarTipo(direcao) {
   if (direcao === 'up') {
-    tipoAtual = tipoAtual === 'Operador' ? 'Admin' : 'Admin'; // 
+    tipoAtual = tipoAtual === 'Operador' ? 'Adm' : 'Adm'; // 
   } else if (direcao === 'down') {
-    tipoAtual = tipoAtual === 'Admin' ? 'Operador' : 'Operador'; 
+    tipoAtual = tipoAtual === 'Adm' ? 'Operador' : 'Operador'; 
   }
   document.getElementById("tipo-text").textContent = tipoAtual;
 }
