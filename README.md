@@ -1,6 +1,6 @@
 # hackathon-posfiap
 
-<h1>Descrição</h1>
+## Descrição
   Este projeto tem como objetivo vincular profissionais voluntarios que desejam fazer parte de Ong's cadastradas.
 
   <h2>Funcionalidades</h2>
@@ -40,14 +40,19 @@ cd hackathon-posfiap
 npm install
 
 <h3>Adicione o arquivo .env</h3>
-DB_CONNECTION_STRING = 
-TOKEN=
-HOST_EMAIL=
-EMAIL=
-SENHA=
-
+<ul>
+  <li>DB_CONNECTION_STRING =   </li>
+  <li>TOKEN= </li>
+  <li>HOST_EMAIL= </li>
+  <li> EMAIL= </li>
+  <li> SENHA= </li>
+</ul>
 <h1>Uso</h1>
 npm run servidor
 
 <h1>Contato</h1>
-João Vitor Barbosa - joao-vitor1903@live.com
+<ul>
+  <li>João Vitor Barbosa - joao-vitor1903@live.com</li>
+  <li>Danielle Palmeira - danny.palmeira@gmail.com</li>
+  <li>Felipe Adorno - felipeoliveiraadorno77@hotmail.com</li>
+</ul>
