@@ -40,12 +40,13 @@ cd hackathon-posfiap
 npm install
 
 <h3>Adicione o arquivo .env</h3>
-- DB_CONNECTION_STRING = 
-- TOKEN=
-- HOST_EMAIL=
-- EMAIL=
-- SENHA=
-
+<ul>
+  <li>DB_CONNECTION_STRING =   </li>
+  <li>TOKEN= </li>
+  <li>HOST_EMAIL= </li>
+  <li> EMAIL= </li>
+  <li> SENHA= </li>
+</ul>
 <h1>Uso</h1>
 npm run servidor
 
