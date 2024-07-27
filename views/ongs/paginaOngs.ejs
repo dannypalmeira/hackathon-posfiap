@@ -82,4 +82,15 @@
 </div>
 <script>
   verificaLogado();
+        // verifica tipo usu
+        document.addEventListener("DOMContentLoaded", function() {
+            var userType = sessionStorage.getItem('tipo');
+            var updateButton = document.getElementById('cadastraOng');
+            if (userType === 'Adm') {
+                updateButton.style.display = 'block';
+            } else {
+                updateButton.style.display = 'none';
+            }
+        });
+
 </script>

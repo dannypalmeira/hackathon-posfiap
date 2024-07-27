@@ -14,6 +14,7 @@
           type="button"
           class="btn btn-danger me-2"
           onclick="confirmDelete('<%= ong._id %>')"
+          id="excluirOng"
         >
           Excluir cadastro
         </button>
@@ -75,7 +76,7 @@
           >
 <%= ong.descricao %></textarea
           >
-          <button type="submit" class="btn btn-primary btn-lg">
+          <button type="submit" class="btn btn-primary btn-lg" id="atualizar">
             Atualizar
           </button>
         </div>
@@ -124,7 +125,7 @@
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
           Fechar
         </button>
-        <button type="button" class="btn btn-danger" onclick="deleteOng()">
+        <button type="button" id="excluirOng" class="btn btn-danger" onclick="deleteOng()">
           Excluir cadastro
         </button>
       </div>
@@ -171,6 +172,23 @@
         // alert('Erro ao atualizar ONG.');
       });
   }
+  // verifica tipo usu
+  document.addEventListener("DOMContentLoaded", function() {
 
+    var userType = sessionStorage.getItem('tipo');
+
+   
+    var excluirButton = document.getElementById('excluirOng');
+    var atualizarButton = document.getElementById('atualizar');
+
+    
+    if (userType === 'Adm') {
+        excluirButton.style.display = 'block'; // Exibe o botão Excluir
+        atualizarButton.style.display = 'block'; // Exibe o botão Atualizar
+    } else {
+        excluirButton.style.display = 'none'; // Oculta o botão Excluir
+        atualizarButton.style.display = 'none'; // Oculta o botão Atualizar
+    }
+});
   verificaLogado();
 </script>

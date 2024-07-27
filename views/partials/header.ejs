@@ -8,7 +8,7 @@
       <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
         <li><a href="/ongs" class="nav-link px-2 text-white">Lista ONG's</a></li>
         <% if (!isAdmin) { %>
-        <li><a href="/listaUsuario" class="nav-link px-2 text-white">Editar Usuário</a></li>
+        <li><a href="/listaUsuario" id="buscaUsu"class="nav-link px-2 text-white">Editar Usuário</a></li>
         <% } %>
       </ul>
 
@@ -100,6 +100,16 @@
           userButton.textContent = inicial;
         }
       });
+          // verifica tipo usu
+      document.addEventListener("DOMContentLoaded", function() {
+            var userType = sessionStorage.getItem('tipo');
+            var updateButton = document.getElementById('buscaUsu');
+            if (userType === 'Adm') {
+                updateButton.style.display = 'block';
+            } else {
+                updateButton.style.display = 'none';
+            }
+        });
 
     </script>
     <% } %>
