@@ -6,7 +6,7 @@ export async function verificaLogado(req, res, next) {
   try {
     const {authorization} = req.headers;
     if (!authorization) {
-      return res.redirect("/login");
+      return res.redirect("/");
     }
     const parts = authorization.split(" ");
     const [schema, token] = parts;
@@ -27,6 +27,7 @@ export async function verificaLogado(req, res, next) {
       }
       req.userId = user.id;
       req.user = user;
+      req.token = token;
       return next();
     });
   } catch (err) {

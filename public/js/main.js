@@ -294,7 +294,7 @@ async function alteraSenha(e) {
       return;
     }
     divErro.innerHTML = "Senha alterada";
-    divErro.style.background = "green";
+    divErro.style.color = "green";
     divErro.style.display = "flex";
     setTimeout(() => {
       divErro.innerHTML = "";
@@ -342,7 +342,7 @@ async function atualizaUsuario(event, id) {
 
     if (responseData.err) {
       divErro.innerHTML = responseData.err;
-      divErro.style.background = 'red';
+      divErro.style.color = 'red';
       divErro.style.display = 'flex';
       setTimeout(() => {
         divErro.innerHTML = '';
@@ -350,7 +350,7 @@ async function atualizaUsuario(event, id) {
       }, 2300);
     } else {
       divErro.innerHTML = 'Dados atualizados com sucesso!';
-      divErro.style.background = 'green';
+      divErro.style.color = 'green';
       divErro.style.display = 'flex';
       setTimeout(() => {
         divErro.innerHTML = '';
@@ -360,7 +360,7 @@ async function atualizaUsuario(event, id) {
     }
   } catch (error) {
     divErro.innerHTML = 'Erro ao atualizar usuário. Tente novamente.';
-    divErro.style.background = 'red';
+    divErro.style.color = 'red';
     divErro.style.display = 'flex';
     setTimeout(() => {
       divErro.innerHTML = '';

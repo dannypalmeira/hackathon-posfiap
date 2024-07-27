@@ -1,21 +1,25 @@
 <div class="container-fluid container-fluid-custom pb-5 mb-5">
-
   <div class="row">
-    <% if(searchResults !='' ) { %>
-      <% searchResults.forEach(function (ong, index) { %>
+    <% if(searchResults !='' ) { %> <% searchResults.forEach(function (ong,
+    index) { %>
+    <div class="col-sm-3 mb-4">
+      <div class="card border-primary card-body" style="min-height: 210px">
+        <div class="container-fluid">
+          <div class="row">
+            <a href="/ongs/<%= ong._id %>">
+              <h4><%= ong.nome_org %></h4>
+            </a>
+            <p class="card-text"><%= ong.area %></p>
+            <p class="card-text">
+              <strong>Contato:</strong> <%= ong.contato %>
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
 
-        <a href="/ongs/<%= ong._id %>">
-          <h4><%= ong.nome_org %></h4>
-        </a>
-        <p class="card-text"><%= ong.area %></p>
-        <p class="card-text">
-          <strong>Contato:</strong> <%= ong.contato %>
-        </p>
-
-        <% }) %>
-          <% } else { %>
-            <p>Nenhuma ONG foi encontrada.</p>
-            <% } %>
-
+    <% }) %> <% } else { %>
+    <p>Nenhuma ONG foi encontrada.</p>
+    <% } %>
   </div>
 </div>

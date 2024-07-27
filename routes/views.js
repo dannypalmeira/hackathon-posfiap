@@ -1,4 +1,5 @@
 import {Router} from "express";
+import {verificaLogado} from "../controllers/middleware.js";
 const router = Router();
 
 router.get("/", (req, res) => {
@@ -55,7 +56,6 @@ router.get("/alteraSenha/:token?", (req, res) => {
   };
   res.render("alteraSenha", {locals, erro: null});
 });
-export default router;
 
 router.get("/ongs", (req, res) => {
   const locals = {
@@ -63,8 +63,22 @@ router.get("/ongs", (req, res) => {
     description: "Página ONGs",
   };
   res.render("ongs", {
+    locals,
     user: req.session.user,
     isAdmin: req.session.user && req.session.user.tipo === "Adm",
     ongs: ongs,
   });
 });
+/* 
+router.post("/logout", verificaLogado, (req, res) => {
+  req.session.destroy(error => {
+    if (error) {
+      console.log(error);
+      return res.send('Erro ao fazer logout');
+    }
+    res.redirect('/');
+  });
+}); */
+
+export default router;
+
