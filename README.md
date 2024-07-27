@@ -51,5 +51,7 @@ npm install
 npm run servidor
 
 <h1>Contato</h1>
-João Vitor Barbosa - joao-vitor1903@live.com
-Danielle Palmeira - danny.palmeira@gmail.com
+<ul>
+  <li>João Vitor Barbosa - joao-vitor1903@live.com</li>
+<li>Danielle Palmeira - danny.palmeira@gmail.com</li>
+</ul>
