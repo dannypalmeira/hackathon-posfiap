@@ -1,8 +1,8 @@
-:root {
-  --background-color: #fff;
+:root  {
+  --background-color: #013d78;
   --bs-primary-rgb: #212529;
   --bs-link-color: #212529;
-  --bs-secondary-color: #48a944;
+  --bs-secondary-color: #212529;
 }
 
 body {
