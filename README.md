@@ -1,4 +1,4 @@
-# Hackathon - PosFIAP
+# Hackathon - FIAP Pós Tech
 
 ## Descrição
   Este projeto tem como objetivo vincular profissionais voluntarios que desejam fazer parte de Ong's cadastradas no portal.
