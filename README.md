@@ -1,9 +1,9 @@
-# hackathon-posfiap
+# Hackathon - PosFIAP
 
 ## Descrição
-  Este projeto tem como objetivo vincular profissionais voluntarios que desejam fazer parte de Ong's cadastradas.
+  Este projeto tem como objetivo vincular profissionais voluntarios que desejam fazer parte de Ong's cadastradas no portal.
 
-  <h2>Funcionalidades</h2>
+## Funcionalidades
 
 <ul>
   <li>Login</li>
@@ -12,7 +12,6 @@
   <li>Redefinir senha</li>
   <li>Alterar senha</li>
   <li>Ver perfil</li>
-
   <li>Visualizar Ong's</li>
   <li>Visualizar detalhes de Ong</li>
   <li>Buscar Ong por nome</li>
@@ -28,31 +27,42 @@
   <li>Buscar usuario por ID</li>
 </ul>
 
-<h1>Instalação</h1>
+## Como rodar a aplicação :arrow_forward:
 
-<h3>instalação do projeto</h3>
+No terminal, clone o projeto: 
+
+```
 git clone https://github.com/dannypalmeira/hackathon-posfiap.git
+```
 
-<h3>Navege até a raiz do projeto</h3>
+Navege até a raiz do projeto
+
+```
 cd hackathon-posfiap
+```
 
-<h3>Instale as dependencias</h3>
+Instale as dependencias
+
+```
 npm install
+```
 
-<h3>Adicione o arquivo .env</h3>
-<ul>
-  <li>DB_CONNECTION_STRING =   </li>
-  <li>TOKEN= </li>
-  <li>HOST_EMAIL= </li>
-  <li> EMAIL= </li>
-  <li> SENHA= </li>
-</ul>
-<h1>Uso</h1>
+Crie o arquivo de variáveis ​​de ambiente .env na pasta raiz
+```
+DB_CONNECTION_STRING = 
+TOKEN = 
+HOST_EMAIL = 
+EMAIL = 
+SENHA = 
+```
+
+## Uso
+
+```
 npm run servidor
+```
 
-<h1>Contato</h1>
-<ul>
-  <li>João Vitor Barbosa - joao-vitor1903@live.com</li>
-  <li>Danielle Palmeira - danny.palmeira@gmail.com</li>
-  <li>Felipe Adorno - felipeoliveiraadorno77@hotmail.com</li>
-</ul>
+## Desenvolvedores
+
+| [<img src="https://avatars.githubusercontent.com/u/71382769?v=4" width=115><br><sub>João Vitor</sub>](https://github.com/JoaoBibito) |  [<img src="https://avatars.githubusercontent.com/u/102001664?v=4" width=115><br><sub>Felipe Adorno</sub>](https://github.com/adornofelipe) |  [<img src="https://avatars.githubusercontent.com/u/99752093?v=4" width=115><br><sub>Danielle Palmeira</sub>](https://github.com/dannypalmeira) |
+| :---: | :---: | :---: 
